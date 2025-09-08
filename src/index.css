@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+html {
+    scroll-behavior: smooth;
+}
+
+@keyframes fadeSlide {
+    0% {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    10% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    33% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    43% {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+}
+
+.fade-slide {
+    animation: fadeSlide 12s infinite;
+}
