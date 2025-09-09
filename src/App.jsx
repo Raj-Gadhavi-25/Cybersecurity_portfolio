@@ -58,39 +58,38 @@ export default function App() {
   ];
 
   const skills = [
-  { 
-    title: 'Core Competencies', 
-    desc: ['Threat Detection', 'Incident Response', 'Vulnerability Analysis', 'SOC Workflows'], 
-    icon: FaShieldAlt 
-  },
-  { 
-    title: 'Frameworks', 
-    desc: ['NIST', 'ISO 27001'], 
-    icon: FaReact 
-  },
-  { 
-    title: 'Tools', 
-    desc: ['Splunk', 'Google Chronicle', 'Security Onion', 'Wireshark'], 
-    icon: FaDatabase 
-  },
-  { 
-    title: 'Programming', 
-    desc: ['Python', 'SQL', 'Linux CLI'], 
-    icon: FaLaptopCode 
-  },
-];
-
+    { 
+      title: 'Core Competencies', 
+      desc: ['Threat Detection', 'Incident Response', 'Vulnerability Analysis', 'SOC Workflows'], 
+      icon: FaShieldAlt 
+    },
+    { 
+      title: 'Frameworks', 
+      desc: ['NIST', 'ISO 27001'], 
+      icon: FaReact 
+    },
+    { 
+      title: 'Tools', 
+      desc: ['Splunk', 'Google Chronicle', 'Security Onion', 'Wireshark'], 
+      icon: FaDatabase 
+    },
+    { 
+      title: 'Programming', 
+      desc: ['Python', 'SQL', 'Linux CLI'], 
+      icon: FaLaptopCode 
+    },
+  ];
 
   // ================= RENDER =================
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white font-sans scroll-smooth overflow-x-hidden">
       
       {/* Navbar */}
-      <nav className={`fixed top-0 left-0 w-full z-50 transition-transform duration-300 bg-[#0a0a0a]/90 backdrop-blur-md ${showNav ? 'translate-y-0' : '-translate-y-24'}`}>
+      <nav className={`fixed top-0 left-0 w-full z-50 transition-transform duration-300 bg-[#0a0a0a]/90 backdrop-blur-md ${showNav ? 'translate-y-0' : '-translate-y-24'}`} aria-label="Main navigation">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
           {/* Logo */}
           <h1 className="text-xl sm:text-2xl font-bold text-[#ff6e6c] hover:text-[#ff8a7a] transition flex items-center gap-3">
-            <img src="/images/favicon.png" alt="Logo" className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 drop-shadow-lg" />
+            <img src="/images/favicon.png" alt="Raj Gadhavi logo" className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 drop-shadow-lg"  />
           </h1>
 
           {/* Desktop Menu */}
@@ -103,7 +102,7 @@ export default function App() {
           </ul>
 
           {/* Mobile Menu Button */}
-          <button className="md:hidden flex flex-col justify-center items-center w-10 h-10 relative" onClick={() => setMenuOpen(!menuOpen)}>
+          <button aria-label="Toggle menu" className="md:hidden flex flex-col justify-center items-center w-10 h-10 relative" onClick={() => setMenuOpen(!menuOpen)}>
             <span className={`block h-0.5 w-6 bg-white rounded-sm transition-transform duration-300 ${menuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
             <span className={`block h-0.5 w-6 bg-white rounded-sm my-1 transition-opacity duration-300 ${menuOpen ? 'opacity-0' : 'opacity-100'}`}></span>
             <span className={`block h-0.5 w-6 bg-white rounded-sm transition-transform duration-300 ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
@@ -123,47 +122,46 @@ export default function App() {
       </nav>
 
       {/* Hero Section */}
-<section className="relative flex flex-col justify-center items-center text-center h-screen px-6 overflow-hidden bg-gradient-to-r from-[#ff6e6c] via-[#ff5fa1] to-[#ff4dbf]">
-  <div className="flex flex-col items-center z-20">  {/* z-20 ensures it's above blobs */}
-    <img 
-      src="/images/favicon.png" 
-      alt="Raj Gadhavi Logo" 
-      className="w-28 sm:w-36 md:w-44 lg:w-52 mb-6 drop-shadow-2xl" 
-    />
-  </div>
+      <section className="relative flex flex-col justify-center items-center text-center h-screen px-6 overflow-hidden bg-gradient-to-r from-[#ff6e6c] via-[#ff5fa1] to-[#ff4dbf]" aria-label="Hero section">
+        <div className="flex flex-col items-center z-20">
+          <img 
+            src="/images/favicon.png" 
+            alt="Raj Gadhavi logo in hero" 
+            className="w-28 sm:w-36 md:w-44 lg:w-52 mb-6 drop-shadow-2xl" 
+          />
+        </div>
 
-  <p className="relative text-3xl sm:text-4xl md:text-6xl font-extrabold text-white leading-snug max-w-5xl mb-12 z-20 drop-shadow-lg">
-    <Typewriter
-      words={[
-        'Cybersecurity & Web Designer.',
-        'Building Secure Systems & Immersive Experiences.',
-        'Passionate About Ethical Hacking & Innovation.',
-        'Crafting Websites That Are Beautiful & Secure.',
-      ]}
-      loop={0}
-      cursor
-      cursorStyle="|"
-      typeSpeed={45}
-      deleteSpeed={30}
-      delaySpeed={1800}
-    />
-  </p>
+        <p className="relative text-3xl sm:text-4xl md:text-6xl font-extrabold text-white leading-snug max-w-5xl mb-12 z-20 drop-shadow-lg">
+          <Typewriter
+            words={[
+              'Cybersecurity & Web Designer.',
+              'Building Secure Systems & Immersive Experiences.',
+              'Passionate About Ethical Hacking & Innovation.',
+              'Crafting Websites That Are Beautiful & Secure.',
+            ]}
+            loop={0}
+            cursor
+            cursorStyle="|"
+            typeSpeed={45}
+            deleteSpeed={30}
+            delaySpeed={1800}
+          />
+        </p>
 
-  {/* Button with higher z-index */}
-  <a 
-    href="https://www.linkedin.com/in/raj-gadhavi0125/" 
-    target="_blank" 
-    rel="noreferrer"
-    className="z-20 inline-block bg-gradient-to-r from-[#7f00ff] via-[#e100ff] to-[#ff00c8] text-white px-6 py-3 sm:px-8 sm:py-4 rounded-xl shadow-lg hover:from-[#9c00ff] hover:to-[#ff33d1] transform hover:-translate-y-1 hover:scale-105 transition duration-300 text-sm sm:text-lg md:text-xl font-semibold"
-  >
-    Connect With Me
-  </a>
+        <a 
+          href="https://www.linkedin.com/in/raj-gadhavi0125/" 
+          target="_blank" 
+          rel="noreferrer"
+          aria-label="Connect with Raj on LinkedIn"
+          className="z-20 inline-block bg-gradient-to-r from-[#7f00ff] via-[#e100ff] to-[#ff00c8] text-white px-6 py-3 sm:px-8 sm:py-4 rounded-xl shadow-lg hover:from-[#9c00ff] hover:to-[#ff33d1] transform hover:-translate-y-1 hover:scale-105 transition duration-300 text-sm sm:text-lg md:text-xl font-semibold"
+        >
+          Connect With Me
+        </a>
 
-  {/* Background blobs */}
-  <div className="absolute top-10 left-1/4 w-40 h-40 sm:w-72 sm:h-72 bg-[#ff6e6c]/20 rounded-full blur-3xl animate-pulse z-0"></div>
-  <div className="absolute bottom-10 right-1/4 w-56 h-56 sm:w-96 sm:h-96 bg-[#ff5fa1]/20 rounded-full blur-3xl animate-pulse z-0"></div>
-</section>
-
+        {/* Background blobs */}
+        <div className="absolute top-10 left-1/4 w-40 h-40 sm:w-72 sm:h-72 bg-[#ff6e6c]/20 rounded-full blur-3xl animate-pulse z-0"></div>
+        <div className="absolute bottom-10 right-1/4 w-56 h-56 sm:w-96 sm:h-96 bg-[#ff5fa1]/20 rounded-full blur-3xl animate-pulse z-0"></div>
+      </section>
 
       {/* Sections */}
       <Section id="studies" title="Studies" icon={<FaGraduationCap />} items={studies} />
@@ -176,31 +174,39 @@ export default function App() {
       <section id="resume" className="max-w-7xl mx-auto px-6 py-20 text-center">
         <h2 className="text-3xl sm:text-4xl font-bold text-[#ff6e6c] mb-8">📄 Resume</h2>
         <p className="text-gray-300 mb-8">Download my resume for full details on education, internships, certificates & projects.</p>
-        <a href="/Raj_Gadhavi_Resume.pdf" download className="bg-[#ff6e6c] text-white px-5 py-3 sm:px-6 sm:py-3 rounded-xl shadow-lg hover:bg-[#ff8a7a] transform hover:-translate-y-2 hover:scale-105 transition duration-300 text-sm sm:text-base">
+        <a 
+          href="/Raj_Gadhavi_Resume.pdf" 
+          download 
+          className="bg-[#ff6e6c] text-white px-5 py-3 sm:px-6 sm:py-3 rounded-xl shadow-lg hover:bg-[#ff8a7a] transform hover:-translate-y-2 hover:scale-105 transition duration-300 text-sm sm:text-base"
+          aria-label="Download Raj Gadhavi Resume"
+        >
           Download Resume
         </a>
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="max-w-7xl mx-auto px-6 py-20">
-  <h2 className="text-3xl sm:text-4xl font-bold text-[#ff6e6c] mb-12 text-center">📬 Contact</h2>
-  <div className="flex justify-center">
-    <div className="w-full sm:w-3/4 md:w-1/2">
-      <ContactCard />
-    </div>
-  </div>
-</section>
-
+      <section id="contact" className="max-w-7xl mx-auto px-6 py-20" aria-label="Contact section">
+        <h2 className="text-3xl sm:text-4xl font-bold text-[#ff6e6c] mb-12 text-center">📬 Contact</h2>
+        <div className="flex justify-center">
+          <div className="w-full sm:w-3/4 md:w-1/2">
+            <ContactCard />
+          </div>
+        </div>
+      </section>
 
       {/* Back-to-Top Button */}
       {showTopBtn && (
-        <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="fixed bottom-6 right-4 sm:bottom-8 sm:right-6 md:right-8 bg-gradient-to-r from-[#ff6e6c] via-[#ff5fa1] to-[#ff4dbf] text-white p-3 sm:p-4 rounded-full shadow-lg hover:scale-110 hover:shadow-2xl transition-transform duration-300 z-50 border-2 border-white/20">
+        <button 
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
+          aria-label="Scroll to top"
+          className="fixed bottom-6 right-4 sm:bottom-8 sm:right-6 md:right-8 bg-gradient-to-r from-[#ff6e6c] via-[#ff5fa1] to-[#ff4dbf] text-white p-3 sm:p-4 rounded-full shadow-lg hover:scale-110 hover:shadow-2xl transition-transform duration-300 z-50 border-2 border-white/20"
+        >
           <FaArrowUp className="text-lg sm:text-xl" />
         </button>
       )}
 
       {/* Footer */}
-      <footer className="bg-[#0a0a0a]/90 backdrop-blur-md border-t border-white/20 mt-20">
+      <footer className="bg-[#0a0a0a]/90 backdrop-blur-md border-t border-white/20 mt-20" aria-label="Footer">
         <div className="max-w-7xl mx-auto px-6 py-12 flex flex-col md:flex-row justify-between items-start md:items-center gap-10">
           <div className="flex flex-col gap-4">
             <h1 className="text-2xl sm:text-3xl font-bold text-[#ff6e6c] flex items-center gap-3">
@@ -230,11 +236,10 @@ export default function App() {
             <div>
               <h3 className="text-white font-semibold mb-3">Follow Me</h3>
               <div className="flex gap-4">
-  <a href="https://www.linkedin.com/in/raj-gadhavi0125/" target="_blank" rel="noreferrer" className="text-gray-300 hover:text-[#ff6e6c] text-xl"><FaLinkedin /></a>
-  <a href="https://github.com/Raj-Gadhavi-25" target="_blank" rel="noreferrer" className="text-gray-300 hover:text-[#ff6e6c] text-xl"><FaGithub /></a>
-  <a href="https://www.instagram.com/rajgadhavi._/?igsh=MXUxeGNvbnd4M2I1bw%3D%3D" target="_blank" rel="noreferrer" className="text-gray-300 hover:text-[#ff6e6c] text-xl"><FaInstagram /></a>
-</div>
-
+                <a href="https://www.linkedin.com/in/raj-gadhavi0125/" target="_blank" rel="noreferrer" className="text-gray-300 hover:text-[#ff6e6c] text-xl" aria-label="LinkedIn"><FaLinkedin /></a>
+                <a href="https://github.com/Raj-Gadhavi-25" target="_blank" rel="noreferrer" className="text-gray-300 hover:text-[#ff6e6c] text-xl" aria-label="GitHub"><FaGithub /></a>
+                <a href="https://www.instagram.com/rajgadhavi._/?igsh=MXUxeGNvbnd4M2I1bw%3D%3D" target="_blank" rel="noreferrer" className="text-gray-300 hover:text-[#ff6e6c] text-xl" aria-label="Instagram"><FaInstagram /></a>
+              </div>
             </div>
           </div>
         </div>
@@ -244,7 +249,20 @@ export default function App() {
       </footer>
 
       {/* Toast Container */}
-      <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="dark"/>
+      <ToastContainer 
+        position="top-right" 
+        autoClose={5000} 
+        hideProgressBar={false} 
+        newestOnTop 
+        closeOnClick 
+        rtl={false} 
+        pauseOnFocusLoss 
+        draggable 
+        pauseOnHover 
+        theme="dark"
+        role="status"
+        aria-live="polite"
+      />
     </div>
   );
 }
@@ -346,20 +364,21 @@ function ContactCard() {
                      focus:outline-none focus:border-[#ff6e6c]" 
         />
         <textarea 
-  name="message" 
-  placeholder="Your Message" 
-  value={formData.message} 
-  onChange={handleChange} 
-  required 
-  className="p-3 rounded-lg bg-[#222222] text-white border border-[#ff6e6c]/50 
-             focus:outline-none focus:border-[#ff6e6c] 
-             resize-none min-h-[120px]"
-></textarea>
+          name="message" 
+          placeholder="Your Message" 
+          value={formData.message} 
+          onChange={handleChange} 
+          required 
+          className="p-3 rounded-lg bg-[#222222] text-white border border-[#ff6e6c]/50 
+                     focus:outline-none focus:border-[#ff6e6c] 
+                     resize-none min-h-[120px]"
+        />
 
         <button 
           type="submit" 
           className="bg-[#ff6e6c] hover:bg-[#ff8a7a] text-white px-5 py-3 rounded-xl 
                      transition transform hover:-translate-y-1 hover:scale-105 font-semibold"
+          aria-label="Send message"
         >
           Send Message
         </button>
@@ -369,33 +388,11 @@ function ContactCard() {
       <div className="mt-6 text-center">
         <p className="text-gray-300 mb-3 font-medium">Or connect with me:</p>
         <div className="flex justify-center gap-6 text-2xl text-gray-300">
-          <a 
-            href="https://www.linkedin.com/in/raj-gadhavi0125/" 
-            target="_blank" 
-            rel="noreferrer" 
-            className="hover:text-[#ff6e6c]"
-          >
-            <FaLinkedin />
-          </a>
-          <a 
-            href="https://github.com/Raj-Gadhavi-25" 
-            target="_blank" 
-            rel="noreferrer" 
-            className="hover:text-[#ff6e6c]"
-          >
-            <FaGithub />
-          </a>
-          <a 
-            href="https://www.instagram.com/rajgadhavi._/?igsh=MXUxeGNvbnd4M2I1bw%3D%3D" 
-            target="_blank" 
-            rel="noreferrer" 
-            className="hover:text-[#ff6e6c]"
-          >
-            <FaInstagram />
-          </a>
+          <a href="https://www.linkedin.com/in/raj-gadhavi0125/" target="_blank" rel="noreferrer" className="hover:text-[#ff6e6c]" aria-label="LinkedIn"><FaLinkedin /></a>
+          <a href="https://github.com/Raj-Gadhavi-25" target="_blank" rel="noreferrer" className="hover:text-[#ff6e6c]" aria-label="GitHub"><FaGithub /></a>
+          <a href="https://www.instagram.com/rajgadhavi._/?igsh=MXUxeGNvbnd4M2I1bw%3D%3D" target="_blank" rel="noreferrer" className="hover:text-[#ff6e6c]" aria-label="Instagram"><FaInstagram /></a>
         </div>
       </div>
     </div>
   );
 }
-
