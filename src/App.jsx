@@ -171,18 +171,66 @@ export default function App() {
       <Section id="skills" title="Skills" icon={<FaCode />} items={skills} />
 
       {/* Resume Section */}
-      <section id="resume" className="max-w-7xl mx-auto px-6 py-20 text-center">
-        <h2 className="text-3xl sm:text-4xl font-bold text-[#ff6e6c] mb-8">📄 Resume</h2>
-        <p className="text-gray-300 mb-8">Download my resume for full details on education, internships, certificates & projects.</p>
-        <a 
-          href="/Raj_Gadhavi_Resume.pdf" 
-          download 
-          className="bg-[#ff6e6c] text-white px-5 py-3 sm:px-6 sm:py-3 rounded-xl shadow-lg hover:bg-[#ff8a7a] transform hover:-translate-y-2 hover:scale-105 transition duration-300 text-sm sm:text-base"
-          aria-label="Download Raj Gadhavi Resume"
-        >
-          Download Resume
-        </a>
-      </section>
+<section id="resume" className="max-w-7xl mx-auto px-6 py-20">
+  <h2 className="text-3xl sm:text-4xl font-bold text-[#ff6e6c] mb-12 text-center flex justify-center items-center gap-3">
+    📄 Resume
+  </h2>
+
+  <p className="text-gray-300 mb-12 text-center max-w-2xl mx-auto">
+    Get a comprehensive look at my education, internships, certificates, and projects.  
+    Download my resume to see how I can bring value to your team.
+  </p>
+
+  <div className="flex flex-col md:flex-row items-center justify-center gap-10">
+    {/* Resume Card */}
+    <div className="relative bg-gradient-to-br from-[#ff6e6c]/30 to-[#ff4dbf]/30 rounded-3xl shadow-2xl p-6 sm:p-10 max-w-sm hover:scale-105 hover:shadow-3xl transition transform duration-300 w-full">
+      {/* Icon */}
+      <div className="w-16 h-16 flex items-center justify-center bg-gradient-to-tr from-[#ff6e6c] to-[#ff4dbf] text-white text-2xl rounded-full mb-6 shadow-lg">
+        📄
+      </div>
+      
+      {/* Title */}
+      <h3 className="text-2xl font-bold text-white mb-4 text-center">Download My Resume</h3>
+      
+      {/* Preview Snippet */}
+      <ul className="space-y-2 text-gray-300 mb-6 text-sm sm:text-base">
+        <li>🎓 B.Tech in IT - Charusat University</li>
+        <li>💻 Web & Android Development Internships</li>
+        <li>🛡 Cybersecurity Projects & Labs</li>
+        <li>🏆 Certificates: Google, Ethical Hacking, NPTEL</li>
+      </ul>
+
+      {/* Download Button */}
+      <a 
+        href="/Raj_Gadhavi_Resume.pdf" 
+        download 
+        className="block bg-gradient-to-r from-[#7f00ff] via-[#e100ff] to-[#ff00c8] text-white text-center px-6 py-3 rounded-xl shadow-lg hover:from-[#9c00ff] hover:to-[#ff33d1] hover:-translate-y-1 hover:scale-105 transition transform duration-300 font-semibold"
+        aria-label="Download Raj Gadhavi Resume"
+      >
+        Download Resume
+      </a>
+
+      {/* Decorative Gradient Circles */}
+      <div className="absolute -top-6 -right-6 w-24 h-24 rounded-full bg-gradient-to-r from-[#ff6e6c] to-[#ff4dbf] opacity-20 blur-3xl animate-pulse"></div>
+      <div className="absolute -bottom-6 -left-6 w-24 h-24 rounded-full bg-gradient-to-r from-[#ff5fa1] to-[#ff00c8] opacity-20 blur-3xl animate-pulse"></div>
+    </div>
+
+    {/* Optional Preview Image / Mockup */}
+    <div className="hidden md:block max-w-sm w-full">
+      <img 
+        src="/images/resume-preview.png" 
+        alt="Resume Preview" 
+        className="rounded-3xl shadow-2xl hover:scale-105 transition transform duration-300"
+      />
+    </div>
+  </div>
+
+  {/* Footer Note */}
+  <p className="text-gray-400 mt-8 text-center text-sm sm:text-base max-w-2xl mx-auto">
+    📌 Always up-to-date with my latest skills and projects. Download to see my full professional journey.
+  </p>
+</section>
+
 
       {/* Contact Section */}
       <section id="contact" className="max-w-7xl mx-auto px-6 py-20" aria-label="Contact section">
