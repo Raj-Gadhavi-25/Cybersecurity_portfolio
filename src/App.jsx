@@ -58,13 +58,28 @@ export default function App() {
   ];
 
   const skills = [
-    { title: 'Web Design & Frontend', desc: ['HTML, CSS, JavaScript', 'React.js, TailwindCSS'], icon: FaCode },
-    { title: 'WordPress Development', desc: ['Custom themes', 'WooCommerce', 'Plugins'], icon: FaWordpress },
-    { title: 'Cybersecurity', desc: ['Ethical Hacking', 'Penetration Testing', 'OSINT & Threat Analysis'], icon: FaShieldAlt },
-    { title: 'Programming', desc: ['C, C++, Java', 'Python basics'], icon: FaLaptopCode },
-    { title: 'Databases', desc: ['SQL, MySQL', 'DBMS Concepts'], icon: FaDatabase },
-    { title: 'Frameworks & Tools', desc: ['Android Studio', 'Git & GitHub', 'Figma'], icon: FaReact },
-  ];
+  { 
+    title: 'Core Competencies', 
+    desc: ['Threat Detection', 'Incident Response', 'Vulnerability Analysis', 'SOC Workflows'], 
+    icon: FaShieldAlt 
+  },
+  { 
+    title: 'Frameworks', 
+    desc: ['NIST', 'ISO 27001'], 
+    icon: FaReact 
+  },
+  { 
+    title: 'Tools', 
+    desc: ['Splunk', 'Google Chronicle', 'Security Onion', 'Wireshark'], 
+    icon: FaDatabase 
+  },
+  { 
+    title: 'Programming', 
+    desc: ['Python', 'SQL', 'Linux CLI'], 
+    icon: FaLaptopCode 
+  },
+];
+
 
   // ================= RENDER =================
   return (
@@ -108,33 +123,47 @@ export default function App() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative flex flex-col justify-center items-center text-center h-screen px-6 overflow-hidden bg-gradient-to-r from-[#ff6e6c] via-[#ff5fa1] to-[#ff4dbf]">
-        <div className="flex flex-col items-center z-10">
-          <img src="/images/favicon.png" alt="Raj Gadhavi Logo" className="w-28 sm:w-36 md:w-44 lg:w-52 mb-6 drop-shadow-2xl" />
-        </div>
-        <p className="relative text-3xl sm:text-4xl md:text-6xl font-extrabold text-white leading-snug max-w-5xl mb-12 z-10 drop-shadow-lg">
-          <Typewriter
-            words={[
-              'Cybersecurity & Web Designer.',
-              'Building Secure Systems & Immersive Experiences.',
-              'Passionate About Ethical Hacking & Innovation.',
-              'Crafting Websites That Are Beautiful & Secure.',
-            ]}
-            loop={0}
-            cursor
-            cursorStyle="|"
-            typeSpeed={45}
-            deleteSpeed={30}
-            delaySpeed={1800}
-          />
-        </p>
-        <a href="https://www.linkedin.com/in/raj-gadhavi0125/" target="_blank" 
-  rel="noreferrer" className="inline-block bg-gradient-to-r from-[#7f00ff] via-[#e100ff] to-[#ff00c8] text-white px-6 py-3 sm:px-8 sm:py-4 rounded-xl shadow-lg hover:from-[#9c00ff] hover:to-[#ff33d1] transform hover:-translate-y-1 hover:scale-105 transition duration-300 text-sm sm:text-lg md:text-xl font-semibold">
-          Connect With Me
-        </a>
-        <div className="absolute top-10 left-1/4 w-40 h-40 sm:w-72 sm:h-72 bg-[#ff6e6c]/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-10 right-1/4 w-56 h-56 sm:w-96 sm:h-96 bg-[#ff5fa1]/20 rounded-full blur-3xl animate-pulse"></div>
-      </section>
+<section className="relative flex flex-col justify-center items-center text-center h-screen px-6 overflow-hidden bg-gradient-to-r from-[#ff6e6c] via-[#ff5fa1] to-[#ff4dbf]">
+  <div className="flex flex-col items-center z-20">  {/* z-20 ensures it's above blobs */}
+    <img 
+      src="/images/favicon.png" 
+      alt="Raj Gadhavi Logo" 
+      className="w-28 sm:w-36 md:w-44 lg:w-52 mb-6 drop-shadow-2xl" 
+    />
+  </div>
+
+  <p className="relative text-3xl sm:text-4xl md:text-6xl font-extrabold text-white leading-snug max-w-5xl mb-12 z-20 drop-shadow-lg">
+    <Typewriter
+      words={[
+        'Cybersecurity & Web Designer.',
+        'Building Secure Systems & Immersive Experiences.',
+        'Passionate About Ethical Hacking & Innovation.',
+        'Crafting Websites That Are Beautiful & Secure.',
+      ]}
+      loop={0}
+      cursor
+      cursorStyle="|"
+      typeSpeed={45}
+      deleteSpeed={30}
+      delaySpeed={1800}
+    />
+  </p>
+
+  {/* Button with higher z-index */}
+  <a 
+    href="https://www.linkedin.com/in/raj-gadhavi0125/" 
+    target="_blank" 
+    rel="noreferrer"
+    className="z-20 inline-block bg-gradient-to-r from-[#7f00ff] via-[#e100ff] to-[#ff00c8] text-white px-6 py-3 sm:px-8 sm:py-4 rounded-xl shadow-lg hover:from-[#9c00ff] hover:to-[#ff33d1] transform hover:-translate-y-1 hover:scale-105 transition duration-300 text-sm sm:text-lg md:text-xl font-semibold"
+  >
+    Connect With Me
+  </a>
+
+  {/* Background blobs */}
+  <div className="absolute top-10 left-1/4 w-40 h-40 sm:w-72 sm:h-72 bg-[#ff6e6c]/20 rounded-full blur-3xl animate-pulse z-0"></div>
+  <div className="absolute bottom-10 right-1/4 w-56 h-56 sm:w-96 sm:h-96 bg-[#ff5fa1]/20 rounded-full blur-3xl animate-pulse z-0"></div>
+</section>
+
 
       {/* Sections */}
       <Section id="studies" title="Studies" icon={<FaGraduationCap />} items={studies} />
@@ -285,24 +314,88 @@ function ContactCard() {
   };
 
   return (
-    <div className="bg-[#111111] p-6 sm:p-8 rounded-3xl shadow-2xl border border-[#ff6e6c]/30 hover:scale-105 transform transition" data-aos="fade-up">
-      <h3 className="text-xl sm:text-2xl font-semibold text-[#ff8a7a] mb-4 text-center">Get in Touch</h3>
+    <div 
+      className="bg-[#111111] p-6 sm:p-8 rounded-3xl shadow-2xl border border-[#ff6e6c]/30 
+                 hover:scale-105 transform transition 
+                 w-full max-w-md min-w-[300px] mx-auto"
+      data-aos="fade-up"
+    >
+      <h3 className="text-xl sm:text-2xl font-semibold text-[#ff8a7a] mb-4 text-center">
+        Get in Touch
+      </h3>
+
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <input type="text" name="name" placeholder="Your Name" value={formData.name} onChange={handleChange} required className="p-3 rounded-lg bg-[#222222] text-white border border-[#ff6e6c]/50 focus:outline-none focus:border-[#ff6e6c]" />
-        <input type="email" name="email" placeholder="Your Email" value={formData.email} onChange={handleChange} required className="p-3 rounded-lg bg-[#222222] text-white border border-[#ff6e6c]/50 focus:outline-none focus:border-[#ff6e6c]" />
-        <textarea name="message" placeholder="Your Message" value={formData.message} onChange={handleChange} required className="p-3 rounded-lg bg-[#222222] text-white border border-[#ff6e6c]/50 focus:outline-none focus:border-[#ff6e6c]"></textarea>
-        <button type="submit" className="bg-[#ff6e6c] hover:bg-[#ff8a7a] text-white px-5 py-3 rounded-xl transition transform hover:-translate-y-1 hover:scale-105 font-semibold">Send Message</button>
+        <input 
+          type="text" 
+          name="name" 
+          placeholder="Your Name" 
+          value={formData.name} 
+          onChange={handleChange} 
+          required 
+          className="p-3 rounded-lg bg-[#222222] text-white border border-[#ff6e6c]/50 
+                     focus:outline-none focus:border-[#ff6e6c]" 
+        />
+        <input 
+          type="email" 
+          name="email" 
+          placeholder="Your Email" 
+          value={formData.email} 
+          onChange={handleChange} 
+          required 
+          className="p-3 rounded-lg bg-[#222222] text-white border border-[#ff6e6c]/50 
+                     focus:outline-none focus:border-[#ff6e6c]" 
+        />
+        <textarea 
+  name="message" 
+  placeholder="Your Message" 
+  value={formData.message} 
+  onChange={handleChange} 
+  required 
+  className="p-3 rounded-lg bg-[#222222] text-white border border-[#ff6e6c]/50 
+             focus:outline-none focus:border-[#ff6e6c] 
+             resize-none min-h-[120px]"
+></textarea>
+
+        <button 
+          type="submit" 
+          className="bg-[#ff6e6c] hover:bg-[#ff8a7a] text-white px-5 py-3 rounded-xl 
+                     transition transform hover:-translate-y-1 hover:scale-105 font-semibold"
+        >
+          Send Message
+        </button>
       </form>
 
       {/* Social Links */}
       <div className="mt-6 text-center">
         <p className="text-gray-300 mb-3 font-medium">Or connect with me:</p>
         <div className="flex justify-center gap-6 text-2xl text-gray-300">
-          <a href="https://www.linkedin.com/in/raj-gadhavi0125/" target="_blank" rel="noreferrer" className="hover:text-[#ff6e6c]"><FaLinkedin /></a>
-          <a href="https://github.com/Raj-Gadhavi-25" target="_blank" rel="noreferrer" className="hover:text-[#ff6e6c]"><FaGithub /></a>
-          <a href="https://www.instagram.com/rajgadhavi._/?igsh=MXUxeGNvbnd4M2I1bw%3D%3D" target="_blank" rel="noreferrer" className="hover:text-[#ff6e6c]"><FaInstagram /></a>
+          <a 
+            href="https://www.linkedin.com/in/raj-gadhavi0125/" 
+            target="_blank" 
+            rel="noreferrer" 
+            className="hover:text-[#ff6e6c]"
+          >
+            <FaLinkedin />
+          </a>
+          <a 
+            href="https://github.com/Raj-Gadhavi-25" 
+            target="_blank" 
+            rel="noreferrer" 
+            className="hover:text-[#ff6e6c]"
+          >
+            <FaGithub />
+          </a>
+          <a 
+            href="https://www.instagram.com/rajgadhavi._/?igsh=MXUxeGNvbnd4M2I1bw%3D%3D" 
+            target="_blank" 
+            rel="noreferrer" 
+            className="hover:text-[#ff6e6c]"
+          >
+            <FaInstagram />
+          </a>
         </div>
       </div>
     </div>
   );
 }
+
