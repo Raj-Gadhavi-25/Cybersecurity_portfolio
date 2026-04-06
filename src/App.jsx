@@ -1,15 +1,11 @@
 import { useEffect, useState } from 'react';
-import { 
-  FaLinkedin, FaGithub, FaArrowUp, FaGraduationCap, FaBriefcase, 
-  FaCertificate, FaProjectDiagram, FaLaptopCode, FaAndroid, FaUniversity, 
-  FaGoogle, FaUserShield, FaDatabase, FaNetworkWired, FaBug, FaUserSecret, 
-  FaSchool, FaCode, FaShieldAlt, FaReact, FaWordpress, 
-  FaInstagram
+import {
+  FaLinkedin, FaGithub, FaArrowUp,
+  FaDatabase, FaUserShield, FaBug,
+  FaNetworkWired, FaUserSecret, FaCode, FaShieldAlt
 } from 'react-icons/fa';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { Typewriter } from 'react-simple-typewriter';
-import emailjs from 'emailjs-com';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -31,416 +27,590 @@ export default function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScroll]);
 
-  // ================= DATA ARRAYS =================
-  const studies = [
-    { title: 'B.Tech in IT', desc: ['Charusat University | 2022 – 2025 | CGPA: 8.18'], icon: FaGraduationCap },
-    { title: 'Diploma in C.E.', desc: ['Marwadi University | 2019 – 2022 | CGPA: 8.68'], icon: FaUniversity },
-    { title: 'SSC / 10th', desc: ['Modi School | 2018 – 2019 | Percentage: 73%'], icon: FaSchool },
-  ];
-
-  const internships = [
-    { title: 'Web Designer Intern', company: 'Qrolic Technologies | Jan – May 2025', desc: ['Responsive web pages', 'Customized WordPress themes', 'Collaborated with senior developers', 'Learned web best practices'], icon: FaLaptopCode },
-    { title: 'Android Development Intern', company: 'Prodigy Infotech | May – June 2024', desc: ['2-player Tic Tac Toe app', 'Implemented game logic & UI', 'Debugged & enhanced app', 'Learned Android best practices'], icon: FaAndroid },
-    { title: 'FullStack Web Development Intern', company: 'Prolog Infotech | May – June 2023', desc: ['Front-end for Taxi Management System', 'Converted Figma/PSD to web pages', 'Improved UX/UI consistency', 'Optimized code for performance'], icon: FaLaptopCode },
-  ];
-
-  const certificates = [
-    { title: 'Google Cybersecurity', date: '31 July 2025', desc: ['Network security', 'Threat detection', 'Risk management'], icon: FaGoogle },
-    { title: 'Ethical Hacking Essentials', date: '8 Oct 2023', desc: ['Fundamentals of ethical hacking', 'Securing systems', 'Web & network exercises'], icon: FaUserShield },
-    { title: 'NPTEL - OS Fundamentals', date: 'Jul – Oct 2023', desc: ['Processes & threads', 'Memory management', 'System calls'], icon: FaDatabase },
-    { title: 'NPTEL - DBMS', date: 'Jan – Mar 2023', desc: ['ER modeling', 'SQL', 'Normalization & transactions'], icon: FaDatabase },
-  ];
+  // ===== DATA =====
 
   const projects = [
-    { title: 'Network Security Analysis', desc: ['Identified network vulnerabilities', 'Implemented firewall rules', 'Monitored traffic & logs'], icon: FaNetworkWired },
-    { title: 'Cyber Threat Assessment', desc: ['Vulnerability scanning', 'Threat classification', 'Recommended mitigation steps'], icon: FaBug },
-    { title: 'Incident Response Simulation', desc: ['Detected malicious activity', 'Isolated systems', 'Conducted forensic analysis'], icon: FaUserSecret },
+    {
+      title: 'Log Analysis & Monitoring',
+      desc: [
+        'Analyzed logs using Splunk & Chronicle',
+        'Detected anomalies & failed login attempts',
+        'Identified brute-force attack patterns'
+      ],
+      icon: FaDatabase
+    },
+    {
+      title: 'Phishing Analysis',
+      desc: [
+        'Analyzed phishing emails & extracted IoCs',
+        'Detected malicious links & spoofing',
+        'Performed phishing simulations'
+      ],
+      icon: FaUserShield
+    },
+    {
+      title: 'Threat Hunting Automation',
+      desc: [
+        'Built Python scripts for detection',
+        'Automated log monitoring',
+        'Reduced manual effort'
+      ],
+      icon: FaBug
+    }
   ];
 
   const skills = [
-    { 
-      title: 'Core Competencies', 
-      desc: ['Threat Detection', 'Incident Response', 'Vulnerability Analysis', 'SOC Workflows'], 
-      icon: FaShieldAlt 
-    },
-    { 
-      title: 'Frameworks', 
-      desc: ['NIST', 'ISO 27001'], 
-      icon: FaReact 
-    },
-    { 
-      title: 'Tools', 
-      desc: ['Splunk', 'Google Chronicle', 'Security Onion', 'Wireshark'], 
-      icon: FaDatabase 
-    },
-    { 
-      title: 'Programming', 
-      desc: ['Python', 'SQL', 'Linux CLI'], 
-      icon: FaLaptopCode 
-    },
+    { title: 'Security Tools', desc: ['Splunk', 'Chronicle', 'Wireshark'], icon: FaShieldAlt },
+    { title: 'Networking', desc: ['TCP/IP', 'DNS', 'Firewalls'], icon: FaNetworkWired },
+    { title: 'Technical', desc: ['Python', 'SQL', 'Linux'], icon: FaCode },
+    { title: 'Concepts', desc: ['Threat Detection', 'SOC', 'Incident Response'], icon: FaUserSecret }
   ];
+  
 
-  // ================= RENDER =================
+  // ===== CONTACT =====
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+
+  const handleChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    toast.success("Message submitted!");
+    setFormData({ name: '', email: '', message: '' });
+  };
+
+  const Experience = [
+  {
+    title: 'Web Designer Intern',
+    company: 'Qrolic Technologies',
+    duration: 'Jan 2025 – May 2025',
+    desc: [
+      'Developed responsive websites using HTML, CSS, JavaScript',
+      'Worked on real client projects and improved UI/UX',
+      'Customized WordPress websites using Elementor'
+    ]
+  },
+  {
+    title: 'Cybersecurity Virtual Experience',
+    company: 'Deloitte (Forage)',
+    duration: '2025 | ~2-3 hours',
+    desc: [
+      'Completed real-world cybersecurity simulation tasks',
+      'Analyzed security threats and vulnerabilities',
+      'Worked on incident response scenarios'
+    ]
+  },
+  {
+    title: 'Cybersecurity Virtual Experience',
+    company: 'Commonwealth Bank (Forage)',
+    duration: '2025 | ~2-3 hours',
+    desc: [
+      'Performed security analysis and threat detection tasks',
+      'Understood SOC workflows and monitoring techniques',
+      'Worked on real-world case-based simulations'
+    ]
+  },
+  {
+    title: 'Cybersecurity Virtual Experience',
+    company: 'Mastercard (Forage)',
+    duration: '2025 | ~2-3 hours',
+    desc: [
+      'Learned fraud detection and cybersecurity practices',
+      'Analyzed risk scenarios and security incidents',
+      'Improved understanding of enterprise security systems'
+    ]
+  }
+];
+
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white font-sans scroll-smooth overflow-x-hidden">
-      
-      {/* Navbar */}
-      <nav className={`fixed top-0 left-0 w-full z-50 transition-transform duration-300 bg-[#0a0a0a]/90 backdrop-blur-md ${showNav ? 'translate-y-0' : '-translate-y-24'}`} aria-label="Main navigation">
+    <div className="min-h-screen bg-[#0B0F14] text-[#E6EDF3]">
+
+      {/* NAVBAR */}
+      <nav className={`fixed top-0 w-full z-50 bg-[#0B0F14]/90 backdrop-blur border-b border-[#1F2933] transition ${showNav ? 'translate-y-0' : '-translate-y-20'}`}>
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          {/* Logo */}
-          <h1 className="text-xl sm:text-2xl font-bold text-[#ff6e6c] hover:text-[#ff8a7a] transition flex items-center gap-3">
-            <img src="/images/favicon.png" alt="Raj Gadhavi logo" className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 drop-shadow-lg"  />
-          </h1>
 
-          {/* Desktop Menu */}
-          <ul className="hidden md:flex space-x-6 font-medium text-gray-200">
-            {['Home','Studies','Internships','Certificates','Projects','Skills','Resume','Contact'].map(section => (
-              <li key={section}>
-                <a href={`#${section.toLowerCase()}`} className="hover:text-[#ff6e6c] transition">{section}</a>
-              </li>
-            ))}
-          </ul>
+          <h1 className="text-xl font-bold text-[#2F81F7]">Raj Gadhavi</h1>
 
-          {/* Mobile Menu Button */}
-          <button aria-label="Toggle menu" className="md:hidden flex flex-col justify-center items-center w-10 h-10 relative" onClick={() => setMenuOpen(!menuOpen)}>
-            <span className={`block h-0.5 w-6 bg-white rounded-sm transition-transform duration-300 ${menuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
-            <span className={`block h-0.5 w-6 bg-white rounded-sm my-1 transition-opacity duration-300 ${menuOpen ? 'opacity-0' : 'opacity-100'}`}></span>
-            <span className={`block h-0.5 w-6 bg-white rounded-sm transition-transform duration-300 ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
+          {/* Desktop */}
+          <div className="hidden md:flex gap-6">
+            {['About', 'Experience', 'Projects', 'Skills', 'Resume', 'Contact'].map(s => (
+  <a
+    key={s}
+    href={`#${s.toLowerCase()}`}
+    className="relative group transition duration-300"
+  >
+    <span className="group-hover:text-[#2F81F7] transition duration-300">
+      {s}
+    </span>
+    <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-[#2F81F7] transition-all duration-300 group-hover:w-full"></span>
+  </a>
+))}
+          </div>
+
+          {/* Mobile Button */}
+          <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden text-2xl">
+            ☰
           </button>
         </div>
 
-        {/* Mobile Dropdown */}
-        <div className={`md:hidden overflow-hidden transition-all duration-500 ease-in-out ${menuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
-          <ul className="flex flex-col items-center bg-[#0a0a0a]/95 py-4 space-y-4 font-medium text-gray-200">
-            {['Home','Studies','Internships','Certificates','Projects','Skills','Resume','Contact'].map(section => (
-              <li key={section}>
-                <a href={`#${section.toLowerCase()}`} onClick={() => setMenuOpen(false)} className="hover:text-[#ff6e6c] transition">{section}</a>
-              </li>
+        {/* Mobile Menu */}
+        {menuOpen && (
+          <div className="md:hidden bg-[#121821] px-6 py-4 space-y-4">
+            {['About', 'Experience', 'Projects', 'Skills', 'Resume', 'Contact'].map(s => (
+              <a
+                key={s}
+                href={`#${s.toLowerCase()}`}
+                onClick={() => setMenuOpen(false)}
+                className="block text-[#9BA7B4] hover:text-[#2F81F7] transition duration-300 hover:translate-x-1"
+              >
+                {s}
+              </a>
             ))}
-          </ul>
-        </div>
+          </div>
+        )}
       </nav>
 
-      {/* Hero Section */}
-      <section className="relative flex flex-col justify-center items-center text-center h-screen px-6 overflow-hidden bg-gradient-to-r from-[#ff6e6c] via-[#ff5fa1] to-[#ff4dbf]" aria-label="Hero section">
-        <div className="flex flex-col items-center z-20">
-          <img 
-            src="/images/favicon.png" 
-            alt="Raj Gadhavi logo in hero" 
-            className="w-28 sm:w-36 md:w-44 lg:w-52 mb-6 drop-shadow-2xl" 
-          />
+      {/* HERO */}
+      <section className="min-h-screen flex items-center px-6">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center">
+
+          {/* LEFT */}
+          <div>
+            <p className="text-sm text-[#9BA7B4] mb-2">👋 Hello, I'm</p>
+
+            <h1 className="text-5xl font-bold mb-4">Raj Gadhavi</h1>
+
+            <h2 className="text-xl text-[#2F81F7] mb-4">
+              Cybersecurity Analyst (SOC) | Threat Detection
+            </h2>
+
+            <p className="text-[#9BA7B4] mb-6">
+              I specialize in log analysis, threat detection, and monitoring using SIEM tools like Splunk and Chronicle.
+              I identify attacks such as brute-force attempts, phishing, and suspicious behavior.
+            </p>
+
+            <div className="flex flex-wrap gap-4 mb-6">
+              <a href="#projects" className="bg-[#2F81F7] px-6 py-3 rounded-lg hover:bg-[#1f6feb] hover:scale-105 hover:shadow-lg transition duration-300">
+                Projects
+              </a>
+
+              <a href="/RAJ_GADHAVI_Resume.pdf" download className="border border-[#2F81F7] px-6 py-3 rounded-lg hover:bg-[#2F81F7]/10 hover:scale-105 transition duration-300">
+                Resume
+              </a>
+
+              <a href="#contact" className="border border-[#30363D] px-6 py-3 rounded-lg hover:bg-[#121821] hover:scale-105 transition duration-300">
+                Contact
+              </a>
+            </div>
+
+            <div className="flex gap-4 text-xl text-[#9BA7B4]">
+  <a
+    href="https://www.linkedin.com/in/raj-gadhavi0125/"
+    target="_blank"
+    rel="noreferrer"
+    className="hover:text-[#2F81F7] hover:-translate-y-1 hover:scale-110 transition duration-300"
+  >
+    <FaLinkedin />
+  </a>
+  <a
+    href="https://github.com/Raj-Gadhavi-25"
+    target="_blank"
+    rel="noreferrer"
+    className="hover:text-[#2F81F7] hover:-translate-y-1 hover:scale-110 transition duration-300"
+  >
+    <FaGithub />
+  </a>
+</div>
+          </div>
+
+          {/* RIGHT */}
+          <div className="bg-[#121821] border border-[#1F2933] rounded-xl p-6">
+            <h3 className="text-[#2F81F7] mb-4 font-semibold">Highlights</h3>
+            <ul className="space-y-3 text-sm text-[#9BA7B4]">
+              <li>✔ SIEM Tools (Splunk, Chronicle)</li>
+              <li>✔ Log Analysis & Monitoring</li>
+              <li>✔ Phishing & Threat Detection</li>
+              <li>✔ Networking & Linux</li>
+              <li>✔ Real-world Lab Projects</li>
+            </ul>
+          </div>
+
         </div>
-
-        <p className="relative text-3xl sm:text-4xl md:text-6xl font-extrabold text-white leading-snug max-w-5xl mb-12 z-20 drop-shadow-lg">
-          <Typewriter
-            words={[
-              'Cybersecurity & Web Designer.',
-              'Building Secure Systems & Immersive Experiences.',
-              'Passionate About Ethical Hacking & Innovation.',
-              'Crafting Websites That Are Beautiful & Secure.',
-            ]}
-            loop={0}
-            cursor
-            cursorStyle="|"
-            typeSpeed={45}
-            deleteSpeed={30}
-            delaySpeed={1800}
-          />
-        </p>
-
-        <a 
-          href="https://www.linkedin.com/in/raj-gadhavi0125/" 
-          target="_blank" 
-          rel="noreferrer"
-          aria-label="Connect with Raj on LinkedIn"
-          className="z-20 inline-block bg-gradient-to-r from-[#7f00ff] via-[#e100ff] to-[#ff00c8] text-white px-6 py-3 sm:px-8 sm:py-4 rounded-xl shadow-lg hover:from-[#9c00ff] hover:to-[#ff33d1] transform hover:-translate-y-1 hover:scale-105 transition duration-300 text-sm sm:text-lg md:text-xl font-semibold"
-        >
-          Connect With Me
-        </a>
-
-        {/* Background blobs */}
-        <div className="absolute top-10 left-1/4 w-40 h-40 sm:w-72 sm:h-72 bg-[#ff6e6c]/20 rounded-full blur-3xl animate-pulse z-0"></div>
-        <div className="absolute bottom-10 right-1/4 w-56 h-56 sm:w-96 sm:h-96 bg-[#ff5fa1]/20 rounded-full blur-3xl animate-pulse z-0"></div>
       </section>
 
-      {/* Sections */}
-      <Section id="studies" title="Studies" icon={<FaGraduationCap />} items={studies} />
-      <Section id="internships" title="Internships" icon={<FaBriefcase />} items={internships} showCompany />
-      <Section id="certificates" title="Certificates" icon={<FaCertificate />} items={certificates} showDate />
-      <Section id="projects" title="Cybersecurity Projects" icon={<FaProjectDiagram />} items={projects} />
-      <Section id="skills" title="Skills" icon={<FaCode />} items={skills} />
+      {/* ABOUT */}
+      <section id="about" className="max-w-6xl mx-auto py-24 px-6">
 
-      {/* Resume Section */}
-<section id="resume" className="max-w-7xl mx-auto px-6 py-20">
-  <h2 className="text-3xl sm:text-4xl font-bold text-[#ff6e6c] mb-12 text-center flex justify-center items-center gap-3">
-    📄 Resume
+  <h2 className="text-3xl sm:text-4xl font-bold text-center mb-4 text-white">
+    👨‍💻 About Me
   </h2>
 
-  <p className="text-gray-300 mb-12 text-center max-w-2xl mx-auto">
-    Get a comprehensive look at my education, internships, certificates, and projects.  
-    Download my resume to see how I can bring value to your team.
+  <p className="text-center text-[#9BA7B4] mb-12 max-w-2xl mx-auto">
+    A passionate cybersecurity enthusiast focused on defending systems,
+    analyzing threats, and building secure digital environments.
   </p>
 
-  <div className="flex flex-col md:flex-row items-center justify-center gap-10">
-    {/* Resume Card */}
-    <div className="relative bg-gradient-to-br from-[#ff6e6c]/30 to-[#ff4dbf]/30 rounded-3xl shadow-2xl p-6 sm:p-10 max-w-sm hover:scale-105 hover:shadow-3xl transition transform duration-300 w-full">
-      {/* Icon */}
-      <div className="w-16 h-16 flex items-center justify-center bg-gradient-to-tr from-[#ff6e6c] to-[#ff4dbf] text-white text-2xl rounded-full mb-6 shadow-lg">
-        📄
+  <div className="grid md:grid-cols-2 gap-10 items-center">
+
+    {/* LEFT - DESCRIPTION */}
+    <div className="text-[#9BA7B4] leading-relaxed space-y-6">
+
+      <p>
+        I am an <span className="text-white font-medium">aspiring Cybersecurity Analyst</span> 
+        with hands-on experience in log analysis, threat detection, and 
+        security monitoring using SIEM tools like 
+        <span className="text-[#2F81F7]"> Splunk</span> and 
+        <span className="text-[#2F81F7]"> Google Chronicle</span>.
+      </p>
+
+      <p>
+        I have worked on identifying suspicious activities such as 
+        brute-force attacks, phishing attempts, and unauthorized access 
+        by analyzing logs and correlating events across systems.
+      </p>
+
+      <p>
+        My technical foundation includes strong knowledge of 
+        <span className="text-white"> networking (TCP/IP, DNS, ports, firewalls)</span> 
+        and <span className="text-white">Linux systems</span>, along with tools like 
+        Wireshark and Nmap for network analysis.
+      </p>
+
+      <p>
+        I am highly interested in working in 
+        <span className="text-[#2F81F7] font-medium"> Security Operations Center (SOC)</span> 
+        environments where I can contribute to real-time threat detection 
+        and continuously enhance my cybersecurity skills.
+      </p>
+
+    </div>
+
+    {/* RIGHT - HIGHLIGHT CARDS */}
+    <div className="grid gap-6">
+
+      <div className="p-6 rounded-2xl bg-[#121821] border border-[#1F2933] hover:border-[#2F81F7] transition">
+        <h3 className="text-lg font-semibold mb-2">🛡️ Security Focus</h3>
+        <p className="text-sm text-[#9BA7B4]">
+          Threat Detection, Log Analysis, Incident Response, SOC Operations
+        </p>
       </div>
-      
-      {/* Title */}
-      <h3 className="text-2xl font-bold text-white mb-4 text-center">Download My Resume</h3>
-      
-      {/* Preview Snippet */}
-      <ul className="space-y-2 text-gray-300 mb-6 text-sm sm:text-base">
-        <li>🎓 B.Tech in IT - Charusat University</li>
-        <li>💻 Web & Android Development Internships</li>
-        <li>🛡 Cybersecurity Projects & Labs</li>
-        <li>🏆 Certificates: Google, Ethical Hacking, NPTEL</li>
-      </ul>
 
-      {/* Download Button */}
-      <a 
-        href="/Raj_Gadhavi_Resume.pdf" 
-        download 
-        className="block bg-gradient-to-r from-[#7f00ff] via-[#e100ff] to-[#ff00c8] text-white text-center px-6 py-3 rounded-xl shadow-lg hover:from-[#9c00ff] hover:to-[#ff33d1] hover:-translate-y-1 hover:scale-105 transition transform duration-300 font-semibold"
-        aria-label="Download Raj Gadhavi Resume"
-      >
-        Download Resume
-      </a>
+      <div className="p-6 rounded-2xl bg-[#121821] border border-[#1F2933] hover:border-[#2F81F7] transition">
+        <h3 className="text-lg font-semibold mb-2">⚙️ Tools & Technologies</h3>
+        <p className="text-sm text-[#9BA7B4]">
+          Splunk, Chronicle, Wireshark, Nmap, Linux, Python, SQL
+        </p>
+      </div>
 
-      {/* Decorative Gradient Circles */}
-      <div className="absolute -top-6 -right-6 w-24 h-24 rounded-full bg-gradient-to-r from-[#ff6e6c] to-[#ff4dbf] opacity-20 blur-3xl animate-pulse"></div>
-      <div className="absolute -bottom-6 -left-6 w-24 h-24 rounded-full bg-gradient-to-r from-[#ff5fa1] to-[#ff00c8] opacity-20 blur-3xl animate-pulse"></div>
+      <div className="p-6 rounded-2xl bg-[#121821] border border-[#1F2933] hover:border-[#2F81F7] transition">
+        <h3 className="text-lg font-semibold mb-2">🚀 Career Goal</h3>
+        <p className="text-sm text-[#9BA7B4]">
+          To become a skilled SOC Analyst and help organizations detect 
+          and prevent cyber threats effectively.
+        </p>
+      </div>
+
     </div>
 
-    {/* Optional Preview Image / Mockup */}
-    <div className="hidden md:block max-w-sm w-full">
-      <img 
-        src="/images/resume-preview.png" 
-        alt="Resume Preview" 
-        className="rounded-3xl shadow-2xl hover:scale-105 transition transform duration-300"
-      />
-    </div>
   </div>
-
-  {/* Footer Note */}
-  <p className="text-gray-400 mt-8 text-center text-sm sm:text-base max-w-2xl mx-auto">
-    📌 Always up-to-date with my latest skills and projects. Download to see my full professional journey.
-  </p>
 </section>
 
+{/* EXPERIENCE */}
+<section id="experience" className="max-w-6xl mx-auto py-24 px-6">
 
-      {/* Contact Section */}
-      <section id="contact" className="max-w-7xl mx-auto px-6 py-20" aria-label="Contact section">
-        <h2 className="text-3xl sm:text-4xl font-bold text-[#ff6e6c] mb-12 text-center">📬 Contact</h2>
-        <div className="flex justify-center">
-          <div className="w-full sm:w-3/4 md:w-1/2">
-            <ContactCard />
-          </div>
-        </div>
-      </section>
+  <h2 className="text-3xl sm:text-4xl font-bold text-center mb-4 text-white">
+    💼 Experience
+  </h2>
 
-      {/* Back-to-Top Button */}
-      {showTopBtn && (
-        <button 
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
-          aria-label="Scroll to top"
-          className="fixed bottom-6 right-4 sm:bottom-8 sm:right-6 md:right-8 bg-gradient-to-r from-[#ff6e6c] via-[#ff5fa1] to-[#ff4dbf] text-white p-3 sm:p-4 rounded-full shadow-lg hover:scale-110 hover:shadow-2xl transition-transform duration-300 z-50 border-2 border-white/20"
+  <p className="text-center text-[#9BA7B4] mb-16 max-w-2xl mx-auto">
+    My journey from web development to cybersecurity through hands-on experience,
+    internships, and real-world simulations.
+  </p>
+
+  {/* TIMELINE CONTAINER */}
+  <div className="relative max-w-3xl mx-auto border-l border-[#1F2933]">
+
+    {/* INTERNSHIP */}
+    <div className="mb-12 pl-10 relative hover:translate-x-2 transition duration-300">
+
+      {/* DOT */}
+      <span className="absolute -left-2 top-3 w-4 h-4 bg-[#2F81F7] rounded-full border-4 border-[#0B0F14]"></span>
+
+      {/* TIMESTAMP */}
+      <p className="inline-block text-sm font-semibold text-[#2F81F7] bg-[#2F81F7]/10 px-3 py-1 rounded-full mb-3 tracking-wide">
+        Jan 2025 – May 2025
+      </p>
+
+      <h3 className="text-lg font-semibold text-white">
+        Web Designer Intern
+      </h3>
+
+      <p className="text-sm text-[#2F81F7] mb-3">
+        Qrolic Technologies
+      </p>
+
+      <ul className="text-sm text-[#9BA7B4] space-y-1 list-disc ml-4">
+        <li>Developed responsive websites using HTML, CSS, JavaScript</li>
+        <li>Worked on real client projects and improved UI/UX</li>
+        <li>Customized WordPress websites using Elementor</li>
+      </ul>
+    </div>
+
+    {/* FORAGE EXPERIENCES */}
+    <div className="mb-12 pl-10 relative hover:translate-x-2 transition duration-300">
+
+      {/* DOT */}
+      <span className="absolute -left-2 top-3 w-4 h-4 bg-[#2F81F7] rounded-full border-4 border-[#0B0F14]"></span>
+
+      {/* TIMESTAMP */}
+      <p className="inline-block text-sm font-semibold text-[#2F81F7] bg-[#2F81F7]/10 px-3 py-1 rounded-full mb-3 tracking-wide">
+        4 April 2026
+      </p>
+
+      <h3 className="text-lg font-semibold text-white">
+        Cybersecurity Virtual Experience (Forage)
+      </h3>
+
+      <p className="text-sm text-[#2F81F7] mb-3">
+        Deloitte → Mastercard → Commonwealth Bank
+      </p>
+
+      <ul className="text-sm text-[#9BA7B4] space-y-2 list-disc ml-4">
+        <li><span className="text-white">Deloitte:</span> Incident response & threat analysis</li>
+        <li><span className="text-white">Mastercard:</span> Fraud detection & risk analysis</li>
+        <li><span className="text-white">Commonwealth Bank:</span> SOC monitoring & detection</li>
+        <li>Completed 3 simulations (~2–3 hours each)</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+      {/* PROJECTS */}
+      <Section title="Projects" items={projects} />
+
+      {/* SKILLS */}
+      <Section title="Skills" items={skills} />
+
+      {/* RESUME */}
+      <section id="resume" className="max-w-6xl mx-auto py-24 px-6 text-center">
+
+  <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-white">
+    📄 My Resume
+  </h2>
+
+  <p className="text-[#9BA7B4] mb-12 max-w-xl mx-auto">
+    Explore my professional journey including education, cybersecurity projects,
+    technical skills, and hands-on experience in SOC operations.
+  </p>
+
+  <div className="grid md:grid-cols-2 gap-10 items-center">
+
+    {/* LEFT - DETAILS */}
+    <div className="space-y-6 text-left">
+
+      <div className="p-6 rounded-2xl bg-[#121821] border border-[#1F2933] hover:border-[#2F81F7] transition">
+        <h3 className="text-lg font-semibold mb-2">🎓 Education</h3>
+        <p className="text-[#9BA7B4] text-sm">
+          B.Tech in IT (CGPA: 8.18) <br />
+          Diploma in Computer Engineering (CGPA: 8.68)
+        </p>
+      </div>
+
+      <div className="p-6 rounded-2xl bg-[#121821] border border-[#1F2933] hover:border-[#2F81F7] transition">
+        <h3 className="text-lg font-semibold mb-2">🛡️ Cybersecurity Skills</h3>
+        <p className="text-[#9BA7B4] text-sm">
+          SIEM (Splunk, Chronicle), Threat Detection, Log Analysis,
+          Phishing Analysis, Incident Response
+        </p>
+      </div>
+
+      <div className="p-6 rounded-2xl bg-[#121821] border border-[#1F2933] hover:border-[#2F81F7] transition">
+        <h3 className="text-lg font-semibold mb-2">⚙️ Tools & Tech</h3>
+        <p className="text-[#9BA7B4] text-sm">
+          Wireshark, Nmap, Linux, Python, SQL, Networking Fundamentals
+        </p>
+      </div>
+
+    </div>
+
+    {/* RIGHT - DOWNLOAD CARD */}
+    <div className="relative p-8 rounded-3xl bg-gradient-to-br from-[#121821] to-[#0B0F14] border border-[#1F2933] shadow-2xl">
+
+      {/* Glow Effect */}
+      <div className="absolute -top-6 -right-6 w-24 h-24 bg-[#2F81F7] opacity-20 blur-3xl rounded-full"></div>
+      <div className="absolute -bottom-6 -left-6 w-24 h-24 bg-[#2F81F7] opacity-20 blur-3xl rounded-full"></div>
+
+      <h3 className="text-2xl font-semibold mb-4">Download Resume</h3>
+
+      <p className="text-[#9BA7B4] mb-6 text-sm">
+        Get the complete overview of my skills, certifications,
+        projects, and experience in one document.
+      </p>
+
+      <a
+        href="/RAJ_GADHAVI_Resume.pdf"
+        download
+        className="inline-block w-full bg-gradient-to-r from-[#2F81F7] to-[#1f6feb]
+                   py-3 rounded-xl font-semibold text-white
+                   hover:scale-105 hover:shadow-lg transition transform"
+      >
+        ⬇ Download PDF
+      </a>
+
+      <p className="text-xs text-[#6B7280] mt-4">
+        Updated regularly with latest projects & skills
+      </p>
+    </div>
+
+  </div>
+</section>
+
+      {/* CONTACT */}
+      <section id="contact" className="max-w-5xl mx-auto py-24 px-6">
+  <h2 className="text-3xl sm:text-4xl font-bold text-center mb-4 text-white">
+    📬 Get In Touch
+  </h2>
+
+  <p className="text-center text-[#9BA7B4] mb-12 max-w-xl mx-auto">
+    Have a question, opportunity, or just want to connect?  
+    Fill out the form below and I’ll get back to you soon.
+  </p>
+
+  <div className="grid md:grid-cols-2 gap-10 items-center">
+
+    {/* LEFT SIDE INFO */}
+    <div className="space-y-6">
+      <div className="p-6 rounded-2xl bg-[#121821] border border-[#1F2933] hover:border-[#2F81F7] transition">
+        <h3 className="text-lg font-semibold mb-2">📧 Email</h3>
+        <p className="text-[#9BA7B4]">rajgadhavi2501@gmail.com</p>
+      </div>
+
+      <div className="p-6 rounded-2xl bg-[#121821] border border-[#1F2933] hover:border-[#2F81F7] transition">
+        <h3 className="text-lg font-semibold mb-2">💼 LinkedIn</h3>
+        <a 
+          href="https://www.linkedin.com/in/raj-gadhavi0125/" 
+          target="_blank"
+          rel="noreferrer"
+          className="text-[#2F81F7] hover:underline"
         >
-          <FaArrowUp className="text-lg sm:text-xl" />
+          Connect with me
+        </a>
+      </div>
+
+      <div className="p-6 rounded-2xl bg-[#121821] border border-[#1F2933] hover:border-[#2F81F7] transition">
+        <h3 className="text-lg font-semibold mb-2">💻 GitHub</h3>
+        <a 
+          href="https://github.com/Raj-Gadhavi-25" 
+          target="_blank"
+          rel="noreferrer"
+          className="text-[#2F81F7] hover:underline"
+        >
+          View my projects
+        </a>
+      </div>
+    </div>
+
+    {/* FORM */}
+    <form 
+      onSubmit={handleSubmit}
+      className="p-8 rounded-3xl bg-gradient-to-br from-[#121821] to-[#0B0F14] border border-[#1F2933] shadow-2xl space-y-6"
+    >
+
+      {/* Name */}
+      <div>
+        <label className="block text-sm mb-2 text-[#9BA7B4]">Full Name</label>
+        <input
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+          placeholder="Enter your name"
+          required
+          className="w-full p-3 rounded-lg bg-[#0B0F14] border border-[#1F2933] 
+                     focus:border-[#2F81F7] focus:ring-1 focus:ring-[#2F81F7] 
+                     outline-none transition"
+        />
+      </div>
+
+      {/* Email */}
+      <div>
+        <label className="block text-sm mb-2 text-[#9BA7B4]">Email Address</label>
+        <input
+          name="email"
+          type="email"
+          value={formData.email}
+          onChange={handleChange}
+          placeholder="Enter your email"
+          required
+          className="w-full p-3 rounded-lg bg-[#0B0F14] border border-[#1F2933] 
+                     focus:border-[#2F81F7] focus:ring-1 focus:ring-[#2F81F7] 
+                     outline-none transition"
+        />
+      </div>
+
+      {/* Message */}
+      <div>
+        <label className="block text-sm mb-2 text-[#9BA7B4]">Message</label>
+        <textarea
+          name="message"
+          value={formData.message}
+          onChange={handleChange}
+          placeholder="Write your message..."
+          required
+          rows="4"
+          className="w-full p-3 rounded-lg bg-[#0B0F14] border border-[#1F2933] 
+                     focus:border-[#2F81F7] focus:ring-1 focus:ring-[#2F81F7] 
+                     outline-none transition resize-none"
+        />
+      </div>
+
+      {/* Button */}
+      <button
+        type="submit"
+        className="w-full bg-gradient-to-r from-[#2F81F7] to-[#1f6feb] 
+                   py-3 rounded-xl font-semibold text-white 
+                   hover:scale-105 hover:shadow-lg transition transform"
+      >
+        🚀 Send Message
+      </button>
+    </form>
+
+  </div>
+</section>
+
+      {/* TOP BUTTON */}
+      {showTopBtn && (
+        <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="fixed bottom-6 right-6 bg-[#2F81F7] p-3 rounded-full">
+          <FaArrowUp />
         </button>
       )}
 
-      {/* Footer */}
-      <footer className="bg-[#0a0a0a]/90 backdrop-blur-md border-t border-white/20 mt-20" aria-label="Footer">
-        <div className="max-w-7xl mx-auto px-6 py-12 flex flex-col md:flex-row justify-between items-start md:items-center gap-10">
-          <div className="flex flex-col gap-4">
-            <h1 className="text-2xl sm:text-3xl font-bold text-[#ff6e6c] flex items-center gap-3">
-              <img src="/images/favicon.png" alt="Logo" className="w-10 h-10 sm:w-12 sm:h-12" />
-              Raj Gadhavi
-            </h1>
-            <p className="text-gray-300 text-sm sm:text-base max-w-xs">
-              Building secure systems & beautiful websites. Always learning & sharing knowledge.
-            </p>
-          </div>
-          <div className="flex flex-col sm:flex-row gap-8">
-            <div>
-              <h3 className="text-white font-semibold mb-3">Quick Links</h3>
-              <ul className="space-y-2 text-gray-300 text-sm sm:text-base">
-                {['Home','Studies','Internships','Certificates','Projects','Skills','Resume','Contact'].map(link => (
-                  <li key={link}><a href={`#${link.toLowerCase()}`} className="hover:text-[#ff6e6c] transition">{link}</a></li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-white font-semibold mb-3">Contact</h3>
-              <ul className="space-y-2 text-gray-300 text-sm sm:text-base">
-                <li>Email: <a href="mailto:rajgadhavi2501@gmail.com" className="hover:text-[#ff6e6c]">rajgadhavi2501@gmail.com</a></li>
-                <li>Phone: <a href="tel:+918487065855" className="hover:text-[#ff6e6c]">+91 8487065855</a></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-white font-semibold mb-3">Follow Me</h3>
-              <div className="flex gap-4">
-                <a href="https://www.linkedin.com/in/raj-gadhavi0125/" target="_blank" rel="noreferrer" className="text-gray-300 hover:text-[#ff6e6c] text-xl" aria-label="LinkedIn"><FaLinkedin /></a>
-                <a href="https://github.com/Raj-Gadhavi-25" target="_blank" rel="noreferrer" className="text-gray-300 hover:text-[#ff6e6c] text-xl" aria-label="GitHub"><FaGithub /></a>
-                <a href="https://www.instagram.com/rajgadhavi._/?igsh=MXUxeGNvbnd4M2I1bw%3D%3D" target="_blank" rel="noreferrer" className="text-gray-300 hover:text-[#ff6e6c] text-xl" aria-label="Instagram"><FaInstagram /></a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="border-t border-white/10 mt-6 py-4 text-center text-gray-400 text-sm">
-          &copy; {new Date().getFullYear()} Raj Gadhavi. All Rights Reserved.
-        </div>
-      </footer>
-
-      {/* Toast Container */}
-      <ToastContainer 
-        position="top-right" 
-        autoClose={5000} 
-        hideProgressBar={false} 
-        newestOnTop 
-        closeOnClick 
-        rtl={false} 
-        pauseOnFocusLoss 
-        draggable 
-        pauseOnHover 
-        theme="dark"
-        role="status"
-        aria-live="polite"
-      />
+      <ToastContainer />
     </div>
   );
 }
 
-// ================= Section Component =================
-function Section({ id, title, icon, items, showCompany, showDate }) {
-  const gradients = [
-    'from-pink-500 to-purple-500',
-    'from-red-500 to-pink-500',
-    'from-blue-500 to-indigo-500',
-    'from-green-500 to-teal-500',
-    'from-yellow-500 to-orange-500',
-    'from-cyan-500 to-blue-500',
-  ];
-
+// ===== SECTION =====
+function Section({ title, items }) {
   return (
-    <section id={id || title.toLowerCase()} className="max-w-7xl mx-auto px-6 py-20">
-      <h2 className="text-3xl sm:text-4xl font-bold text-[#ff6e6c] mb-12 text-center flex justify-center items-center gap-3">
-        {icon} {title}
-      </h2>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
-        {items.map((item, i) => {
-          const IconComponent = item.icon;
-          const gradient = gradients[i % gradients.length];
-          const isStudies = title === "Studies";
+    <section id={title.toLowerCase()} className="max-w-6xl mx-auto px-6 py-20">
+      <h2 className="text-3xl font-bold mb-10 text-center">{title}</h2>
 
+      <div className="grid md:grid-cols-3 gap-6">
+        {items.map((item, i) => {
+          const Icon = item.icon;
           return (
-            <div key={i} data-aos={i % 2 === 0 ? 'fade-up' : 'fade-down'} className="relative p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-white/5 via-white/10 to-white/5 backdrop-blur-xl border border-white/20 hover:scale-105 hover:shadow-2xl transition transform duration-300">
-              <div className={`w-12 h-12 sm:w-16 sm:h-16 mb-4 rounded-full bg-gradient-to-br ${gradient} flex items-center justify-center text-white text-xl sm:text-2xl`}>
-                <IconComponent />
-              </div>
-              <h3 className="text-xl sm:text-2xl font-semibold text-[#ff8a7a] mb-2">{item.title}</h3>
-              {showCompany && <p className="text-gray-300 mb-2 text-sm sm:text-base">{item.company}</p>}
-              {showDate && <p className="text-gray-300 mb-2 text-sm sm:text-base">{item.date}</p>}
-              {item.desc && Array.isArray(item.desc) && (
-                isStudies ? (
-                  <div className="space-y-1 text-gray-300 text-sm sm:text-base">{item.desc.map((d, j) => <p key={j}>{d}</p>)}</div>
-                ) : (
-                  <ul className="list-disc list-inside space-y-2 text-gray-300 text-sm sm:text-base">{item.desc.map((d, j) => <li key={j}>{d}</li>)}</ul>
-                )
-              )}
-              <div className={`absolute -top-4 -right-4 w-16 h-16 sm:w-24 sm:h-24 bg-gradient-to-r ${gradient} opacity-10 rounded-full blur-3xl animate-pulse`}></div>
+            <div key={i} className="group p-6 bg-[#121821] border border-[#1F2933] rounded-xl hover:border-[#2F81F7] transition">
+  <Icon className="text-2xl mb-3 text-[#2F81F7] transition duration-300 group-hover:scale-125 group-hover:rotate-6" />
+              <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
+              <ul className="text-sm text-[#9BA7B4] list-disc ml-4">
+                {item.desc.map((d, j) => <li key={j}>{d}</li>)}
+              </ul>
             </div>
           );
         })}
       </div>
     </section>
-  );
-}
-
-// ================= Contact Card =================
-function ContactCard() {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
-  const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    emailjs.send(
-      'service_thj8xpt',  // replace with your EmailJS service ID
-      'template_0cneb65', // replace with your EmailJS template ID
-      formData,
-      '1C9AdMxkNWlNn9HT0'   // replace with your EmailJS public key
-    ).then(() => {
-      toast.success('Message sent successfully!');
-      setFormData({ name: '', email: '', message: '' });
-    }).catch(() => toast.error('Failed to send message. Please try again.'));
-  };
-
-  return (
-    <div 
-      className="bg-[#111111] p-6 sm:p-8 rounded-3xl shadow-2xl border border-[#ff6e6c]/30 
-                 hover:scale-105 transform transition 
-                 w-full max-w-md min-w-[300px] mx-auto"
-      data-aos="fade-up"
-    >
-      <h3 className="text-xl sm:text-2xl font-semibold text-[#ff8a7a] mb-4 text-center">
-        Get in Touch
-      </h3>
-
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <input 
-          type="text" 
-          name="name" 
-          placeholder="Your Name" 
-          value={formData.name} 
-          onChange={handleChange} 
-          required 
-          className="p-3 rounded-lg bg-[#222222] text-white border border-[#ff6e6c]/50 
-                     focus:outline-none focus:border-[#ff6e6c]" 
-        />
-        <input 
-          type="email" 
-          name="email" 
-          placeholder="Your Email" 
-          value={formData.email} 
-          onChange={handleChange} 
-          required 
-          className="p-3 rounded-lg bg-[#222222] text-white border border-[#ff6e6c]/50 
-                     focus:outline-none focus:border-[#ff6e6c]" 
-        />
-        <textarea 
-          name="message" 
-          placeholder="Your Message" 
-          value={formData.message} 
-          onChange={handleChange} 
-          required 
-          className="p-3 rounded-lg bg-[#222222] text-white border border-[#ff6e6c]/50 
-                     focus:outline-none focus:border-[#ff6e6c] 
-                     resize-none min-h-[120px]"
-        />
-
-        <button 
-          type="submit" 
-          className="bg-[#ff6e6c] hover:bg-[#ff8a7a] text-white px-5 py-3 rounded-xl 
-                     transition transform hover:-translate-y-1 hover:scale-105 font-semibold"
-          aria-label="Send message"
-        >
-          Send Message
-        </button>
-      </form>
-
-      {/* Social Links */}
-      <div className="mt-6 text-center">
-        <p className="text-gray-300 mb-3 font-medium">Or connect with me:</p>
-        <div className="flex justify-center gap-6 text-2xl text-gray-300">
-          <a href="https://www.linkedin.com/in/raj-gadhavi0125/" target="_blank" rel="noreferrer" className="hover:text-[#ff6e6c]" aria-label="LinkedIn"><FaLinkedin /></a>
-          <a href="https://github.com/Raj-Gadhavi-25" target="_blank" rel="noreferrer" className="hover:text-[#ff6e6c]" aria-label="GitHub"><FaGithub /></a>
-          <a href="https://www.instagram.com/rajgadhavi._/?igsh=MXUxeGNvbnd4M2I1bw%3D%3D" target="_blank" rel="noreferrer" className="hover:text-[#ff6e6c]" aria-label="Instagram"><FaInstagram /></a>
-        </div>
-      </div>
-    </div>
   );
 }
