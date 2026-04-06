@@ -8,6 +8,7 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import emailjs from '@emailjs/browser';
 
 export default function App() {
   const [showNav, setShowNav] = useState(true);
@@ -74,10 +75,27 @@ export default function App() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    toast.success("Message submitted!");
+  e.preventDefault();
+
+  emailjs.send(
+    "service_thj8xpt",
+    "template_0cneb65",
+    {
+      name: formData.name,
+      email: formData.email,
+      message: formData.message,
+    },
+    "1C9AdMxkNWlNn9HT0"
+  )
+  .then(() => {
+    toast.success("Message sent successfully!");
     setFormData({ name: '', email: '', message: '' });
-  };
+  })
+  .catch((error) => {
+    console.error(error);
+    toast.error("Failed to send message.");
+  });
+};
 
   const Experience = [
   {
