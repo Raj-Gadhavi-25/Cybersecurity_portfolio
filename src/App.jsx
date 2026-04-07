@@ -31,41 +31,75 @@ export default function App() {
   // ===== DATA =====
 
   const projects = [
-    {
-      title: 'Log Analysis & Monitoring',
-      desc: [
-        'Analyzed logs using Splunk & Chronicle',
-        'Detected anomalies & failed login attempts',
-        'Identified brute-force attack patterns'
-      ],
-      icon: FaDatabase
-    },
-    {
-      title: 'Phishing Analysis',
-      desc: [
-        'Analyzed phishing emails & extracted IoCs',
-        'Detected malicious links & spoofing',
-        'Performed phishing simulations'
-      ],
-      icon: FaUserShield
-    },
-    {
-      title: 'Threat Hunting Automation',
-      desc: [
-        'Built Python scripts for detection',
-        'Automated log monitoring',
-        'Reduced manual effort'
-      ],
-      icon: FaBug
-    }
-  ];
+  {
+    title: 'Log Analysis & Monitoring',
+    desc: [
+      'Analyzed system logs using Splunk & Chronicle SIEM tools',
+      'Detected failed login attempts and brute-force attack patterns',
+      'Correlated logs to identify suspicious activities',
+      'Created alerts for real-time threat detection'
+    ],
+    icon: FaDatabase
+  },
+  {
+    title: 'Phishing Analysis',
+    desc: [
+      'Analyzed phishing emails and extracted Indicators of Compromise (IoCs)',
+      'Detected malicious links, spoofed domains, and email headers',
+      'Performed phishing simulations to understand attack patterns',
+      'Improved awareness of social engineering techniques'
+    ],
+    icon: FaUserShield
+  },
+  {
+    title: 'Threat Hunting Automation',
+    desc: [
+      'Developed Python scripts for automated threat detection',
+      'Automated log monitoring and alert generation',
+      'Reduced manual analysis effort and improved efficiency',
+      'Enhanced detection of suspicious activities'
+    ],
+    icon: FaBug
+  }
+];
 
   const skills = [
-    { title: 'Security Tools', desc: ['Splunk', 'Chronicle', 'Wireshark'], icon: FaShieldAlt },
-    { title: 'Networking', desc: ['TCP/IP', 'DNS', 'Firewalls'], icon: FaNetworkWired },
-    { title: 'Technical', desc: ['Python', 'SQL', 'Linux'], icon: FaCode },
-    { title: 'Concepts', desc: ['Threat Detection', 'SOC', 'Incident Response'], icon: FaUserSecret }
-  ];
+  {
+    title: 'SIEM & Security Tools',
+    desc: [
+      'Splunk – Log analysis & alert creation',
+      'Google Chronicle – Threat detection',
+      'Wireshark – Network traffic analysis'
+    ],
+    icon: FaShieldAlt
+  },
+  {
+    title: 'Networking',
+    desc: [
+      'TCP/IP, DNS, Ports, Firewalls',
+      'Packet analysis & troubleshooting'
+    ],
+    icon: FaNetworkWired
+  },
+  {
+    title: 'Technical',
+    desc: [
+      'Python – Automation scripts',
+      'SQL – Querying & analysis',
+      'Linux – System operations'
+    ],
+    icon: FaCode
+  },
+  {
+    title: 'Security Concepts',
+    desc: [
+      'Threat Detection & Analysis',
+      'SOC Operations',
+      'Incident Response'
+    ],
+    icon: FaUserSecret
+  }
+];
   
 
   // ===== CONTACT =====
@@ -144,49 +178,82 @@ export default function App() {
     <div className="min-h-screen bg-[#0B0F14] text-[#E6EDF3]">
 
       {/* NAVBAR */}
-      <nav className={`fixed top-0 w-full z-50 bg-[#0B0F14]/90 backdrop-blur border-b border-[#1F2933] transition ${showNav ? 'translate-y-0' : '-translate-y-20'}`}>
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+<nav className={`fixed top-0 w-full z-50 bg-[#0B0F14]/90 backdrop-blur border-b border-[#1F2933] transition ${showNav ? 'translate-y-0' : '-translate-y-20'}`}>
+  <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
 
-          <h1 className="text-xl font-bold text-[#2F81F7]">Raj Gadhavi</h1>
+    {/* LOGO */}
+    <h1 className="text-xl font-bold text-[#2F81F7]">Raj Gadhavi</h1>
 
-          {/* Desktop */}
-          <div className="hidden md:flex gap-6">
-            {['About', 'Experience', 'Projects', 'Skills', 'Resume', 'Contact'].map(s => (
-  <a
-    key={s}
-    href={`#${s.toLowerCase()}`}
-    className="relative group transition duration-300"
+    {/* DESKTOP MENU (≥1024px) */}
+    <div className="hidden lg:flex flex-wrap gap-6">
+      {[
+        'About',
+        'Experience',
+        'Projects',
+        'Skills',
+        'Why Hire Me',
+        'Certifications',
+        'Resume',
+        'Contact'
+      ].map((s) => (
+        <a
+          key={s}
+          href={`#${s.toLowerCase().replace(/\s+/g, '-')}`}
+          className="relative group transition duration-300"
+        >
+          <span className="group-hover:text-[#2F81F7] transition duration-300">{s}</span>
+          <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-[#2F81F7] transition-all duration-300 group-hover:w-full"></span>
+        </a>
+      ))}
+    </div>
+
+    {/* HAMBURGER BUTTON (visible <1024px) */}
+<button
+  onClick={() => setMenuOpen(!menuOpen)}
+  className="lg:hidden relative w-8 h-8 flex flex-col justify-between items-center"
+>
+  {/* Hamburger lines */}
+  <span
+    className={`block h-1 w-full bg-white rounded transition-all duration-300
+      ${menuOpen ? 'rotate-45 translate-y-3.5 bg-[#2F81F7]' : ''}`}
+  ></span>
+  <span
+    className={`block h-1 w-full bg-white rounded transition-all duration-300
+      ${menuOpen ? 'opacity-0' : 'opacity-100'}`}
+  ></span>
+  <span
+    className={`block h-1 w-full bg-white rounded transition-all duration-300
+      ${menuOpen ? '-rotate-45 -translate-y-3.5 bg-[#2F81F7]' : ''}`}
+  ></span>
+</button>
+  </div>
+
+  {/* MOBILE/TABLET MENU (<1024px) with slide-down animation */}
+  <div
+    className={`lg:hidden overflow-hidden transition-all duration-500 ease-in-out
+      ${menuOpen ? 'max-h-96 opacity-100 py-4' : 'max-h-0 opacity-0 py-0' } bg-[#121821] px-6`}
   >
-    <span className="group-hover:text-[#2F81F7] transition duration-300">
-      {s}
-    </span>
-    <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-[#2F81F7] transition-all duration-300 group-hover:w-full"></span>
-  </a>
-))}
-          </div>
-
-          {/* Mobile Button */}
-          <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden text-2xl">
-            ☰
-          </button>
-        </div>
-
-        {/* Mobile Menu */}
-        {menuOpen && (
-          <div className="md:hidden bg-[#121821] px-6 py-4 space-y-4">
-            {['About', 'Experience', 'Projects', 'Skills', 'Resume', 'Contact'].map(s => (
-              <a
-                key={s}
-                href={`#${s.toLowerCase()}`}
-                onClick={() => setMenuOpen(false)}
-                className="block text-[#9BA7B4] hover:text-[#2F81F7] transition duration-300 hover:translate-x-1"
-              >
-                {s}
-              </a>
-            ))}
-          </div>
-        )}
-      </nav>
+    {[
+      'About',
+      'Experience',
+      'Projects',
+      'Skills',
+      'Why Hire Me',
+      'Certifications',
+      'Resume',
+      'Contact'
+    ].map((s) => (
+      <a
+        key={s}
+        href={`#${s.toLowerCase().replace(/\s+/g, '-')}`}
+        onClick={() => setMenuOpen(false)}
+        className="block text-[#9BA7B4] hover:text-[#2F81F7] transition duration-300 hover:translate-x-1 py-2"
+      >
+        {s}
+      </a>
+    ))}
+  </div>
+</nav>
 
       {/* HERO */}
       <section className="min-h-screen flex items-center px-6 pt-24 md:pt-28">
@@ -199,13 +266,14 @@ export default function App() {
             <h1 className="text-5xl font-bold mb-4">Raj Gadhavi</h1>
 
             <h2 className="text-xl text-[#2F81F7] mb-4">
-              Cybersecurity Analyst (SOC) | Threat Detection
-            </h2>
+  Detecting cyber threats using SIEM tools like Splunk & Chronicle
+</h2>
 
-            <p className="text-[#9BA7B4] mb-6">
-              I specialize in log analysis, threat detection, and monitoring using SIEM tools like Splunk and Chronicle.
-              I identify attacks such as brute-force attempts, phishing, and suspicious behavior.
-            </p>
+<p className="text-[#9BA7B4] mb-6">
+  Aspiring SOC Analyst with hands-on experience in log analysis, threat detection,
+  and incident response. Skilled in identifying brute-force attacks, phishing attempts,
+  and suspicious behavior using real-world security tools.
+</p>
 
             <div className="flex flex-wrap gap-4 mb-6">
               <a href="#projects" className="bg-[#2F81F7] px-6 py-3 rounded-lg hover:bg-[#1f6feb] hover:scale-105 hover:shadow-lg transition duration-300">
@@ -410,6 +478,133 @@ export default function App() {
       {/* SKILLS */}
       <Section title="Skills" items={skills} />
 
+      {/* WHY HIRE ME */}
+<section id="why-hire-me" className="max-w-6xl mx-auto py-24 px-6">
+  <h2 className="text-3xl font-bold text-center mb-10 text-white">
+    💡 Why Hire Me?
+  </h2>
+
+  <div className="grid md:grid-cols-2 gap-6">
+    {[
+      "Hands-on experience with SIEM tools (Splunk, Chronicle)",
+      "Strong understanding of SOC workflows & incident response",
+      "Built real-world threat detection projects",
+      "Quick learner with strong cybersecurity fundamentals"
+    ].map((item, i) => (
+      <div key={i} className="p-5 bg-[#121821] border border-[#1F2933] rounded-xl">
+        ✔ {item}
+      </div>
+    ))}
+  </div>
+</section>
+
+{/* CERTIFICATIONS */}
+<section id="certifications" className="max-w-6xl mx-auto py-24 px-6">
+  <h2 className="text-3xl sm:text-4xl font-bold text-center mb-4 text-white">
+    📜 Certifications
+  </h2>
+
+  <p className="text-center text-[#9BA7B4] mb-12 max-w-2xl mx-auto">
+    Certifications that showcase my knowledge in cybersecurity, systems, and core computer science fundamentals.
+  </p>
+
+  <div className="space-y-10">
+
+    {/* ===== 2026 ===== */}
+    <div>
+      <h3 className="text-xl font-semibold text-[#2F81F7] mb-4">2026</h3>
+
+      <div className="grid md:grid-cols-2 gap-6">
+
+        {/* Forage (Updated) */}
+        <div className="p-6 bg-[#121821] border border-[#1F2933] rounded-xl hover:border-[#2F81F7] transition md:col-span-2">
+          <h3 className="font-semibold text-white">
+            Cybersecurity Virtual Experience
+          </h3>
+          <p className="text-sm text-[#9BA7B4]">
+            Deloitte, Mastercard, Commonwealth Bank (Forage) • 4 April 2026
+          </p>
+          <p className="text-sm text-[#9BA7B4] mt-2">
+            Hands-on simulations in SOC workflows, threat detection, incident response, and security analysis.
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+    {/* ===== 2025 ===== */}
+    <div>
+      <h3 className="text-xl font-semibold text-[#2F81F7] mb-4">2025</h3>
+
+      <div className="grid md:grid-cols-2 gap-6">
+
+        {/* Google Cybersecurity */}
+        <div className="p-6 bg-[#121821] border border-[#1F2933] rounded-xl hover:border-[#2F81F7] transition md:col-span-2">
+          <h3 className="font-semibold text-white">
+            Google Cybersecurity Certificate
+          </h3>
+          <p className="text-sm text-[#9BA7B4]">Coursera</p>
+          <p className="text-sm text-[#9BA7B4] mt-2">
+            Covered SIEM tools, threat detection, incident response, and security fundamentals.
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+    {/* ===== 2024 ===== */}
+    <div>
+      <h3 className="text-xl font-semibold text-[#2F81F7] mb-4">2024</h3>
+
+      <div className="grid md:grid-cols-2 gap-6">
+
+        {/* CHE */}
+        <div className="p-6 bg-[#121821] border border-[#1F2933] rounded-xl hover:border-[#2F81F7] transition md:col-span-2">
+          <h3 className="font-semibold text-white">
+            CHE Essentials
+          </h3>
+          <p className="text-sm text-[#9BA7B4] mt-2">
+            Gained foundational knowledge in cybersecurity practices and ethical handling of systems.
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+    {/* ===== 2023 ===== */}
+    <div>
+      <h3 className="text-xl font-semibold text-[#2F81F7] mb-4">2023</h3>
+
+      <div className="grid md:grid-cols-2 gap-6">
+
+        {/* NPTEL OS */}
+        <div className="p-6 bg-[#121821] border border-[#1F2933] rounded-xl hover:border-[#2F81F7] transition">
+          <h3 className="font-semibold text-white">
+            Operating Systems Fundamentals
+          </h3>
+          <p className="text-sm text-[#9BA7B4]">NPTEL</p>
+          <p className="text-sm text-[#9BA7B4] mt-2">
+            Learned process management, memory management, scheduling, and OS concepts.
+          </p>
+        </div>
+
+        {/* NPTEL DBMS */}
+        <div className="p-6 bg-[#121821] border border-[#1F2933] rounded-xl hover:border-[#2F81F7] transition">
+          <h3 className="font-semibold text-white">
+            Database Management Systems
+          </h3>
+          <p className="text-sm text-[#9BA7B4]">NPTEL</p>
+          <p className="text-sm text-[#9BA7B4] mt-2">
+            Covered SQL, normalization, indexing, transactions, and database design.
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
       {/* RESUME */}
       <section id="resume" className="max-w-6xl mx-auto py-24 px-6 text-center">
 
@@ -491,10 +686,15 @@ export default function App() {
     📬 Get In Touch
   </h2>
 
+    <p className="text-green-400 font-medium text-center mb-6">
+  ✅ Open to internships & entry-level SOC roles
+</p>
+
   <p className="text-center text-[#9BA7B4] mb-12 max-w-xl mx-auto">
     Have a question, opportunity, or just want to connect?  
     Fill out the form below and I’ll get back to you soon.
   </p>
+  
 
   <div className="grid md:grid-cols-2 gap-10 items-center">
 
