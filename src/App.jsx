@@ -189,7 +189,7 @@ export default function App() {
       </nav>
 
       {/* HERO */}
-      <section className="min-h-screen flex items-center px-6">
+      <section className="min-h-screen flex items-center px-6 pt-24 md:pt-28">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center">
 
           {/* LEFT */}
