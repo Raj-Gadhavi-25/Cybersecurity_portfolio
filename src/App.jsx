@@ -212,7 +212,7 @@ export default function App() {
                 Projects
               </a>
 
-              <a href="/RAJ_GADHAVI_Resume.pdf" download className="border border-[#2F81F7] px-6 py-3 rounded-lg hover:bg-[#2F81F7]/10 hover:scale-105 transition duration-300">
+              <a href="/Resume.pdf" download className="border border-[#2F81F7] px-6 py-3 rounded-lg hover:bg-[#2F81F7]/10 hover:scale-105 transition duration-300">
                 Resume
               </a>
 
@@ -467,14 +467,15 @@ export default function App() {
       </p>
 
       <a
-        href="/RAJ_GADHAVI_Resume.pdf"
-        download
-        className="inline-block w-full bg-gradient-to-r from-[#2F81F7] to-[#1f6feb]
-                   py-3 rounded-xl font-semibold text-white
-                   hover:scale-105 hover:shadow-lg transition transform"
-      >
-        ⬇ Download PDF
-      </a>
+  href="/Resume.pdf"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="inline-block w-full bg-gradient-to-r from-[#2F81F7] to-[#1f6feb]
+             py-3 rounded-xl font-semibold text-white
+             hover:scale-105 hover:shadow-lg transition transform"
+>
+  ⬇ Download PDF
+</a>
 
       <p className="text-xs text-[#6B7280] mt-4">
         Updated regularly with latest projects & skills
