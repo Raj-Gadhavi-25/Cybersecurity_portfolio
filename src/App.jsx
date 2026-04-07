@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import Loader from './loader';
 import {
   FaLinkedin, FaGithub, FaArrowUp,
   FaDatabase, FaUserShield, FaBug,
@@ -15,7 +16,15 @@ export default function App() {
   const [lastScroll, setLastScroll] = useState(0);
   const [showTopBtn, setShowTopBtn] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
 
+  // ===== LOADER USEEFFECT =====
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1200); // 1.2 seconds
+    return () => clearTimeout(timer);
+  }, []);
+
+  // ===== SCROLL & AOS USEEFFECT (your existing one) =====
   useEffect(() => {
     const handleScroll = () => {
       const currentScroll = window.scrollY;
@@ -174,6 +183,10 @@ export default function App() {
   }
 ];
 
+if (loading) {
+    return <Loader />;
+  }
+
   return (
     <div className="min-h-screen bg-[#0B0F14] text-[#E6EDF3]">
 
@@ -263,9 +276,10 @@ export default function App() {
           <div>
             <p className="text-sm text-[#9BA7B4] mb-2">👋 Hello, I'm</p>
 
-            <h1 className="text-5xl font-bold mb-4">Raj Gadhavi</h1>
-
-            <h2 className="text-xl text-[#2F81F7] mb-4">
+            <h1 className="text-5xl font-bold mb-4 animate-fadeIn">
+  Raj Gadhavi
+</h1>
+<h2 className="text-xl text-[#2F81F7] mb-4 animate-slideIn">
   Detecting cyber threats using SIEM tools like Splunk & Chronicle
 </h2>
 
@@ -325,13 +339,26 @@ export default function App() {
       </section>
 
       {/* ABOUT */}
-      <section id="about" className="max-w-6xl mx-auto py-24 px-6">
-
-  <h2 className="text-3xl sm:text-4xl font-bold text-center mb-4 text-white">
+      <section 
+  id="about" 
+  className="max-w-6xl mx-auto py-24 px-6"
+  data-aos="fade-up"       // Animate the whole section on scroll
+>
+  {/* HEADING */}
+  <h2 
+    className="text-3xl sm:text-4xl font-bold text-center mb-4 text-white"
+    data-aos="fade-down"
+    data-aos-delay="100"
+  >
     👨‍💻 About Me
   </h2>
 
-  <p className="text-center text-[#9BA7B4] mb-12 max-w-2xl mx-auto">
+  {/* INTRO PARAGRAPH */}
+  <p 
+    className="text-center text-[#9BA7B4] mb-12 max-w-2xl mx-auto"
+    data-aos="fade-up"
+    data-aos-delay="200"
+  >
     A passionate cybersecurity enthusiast focused on defending systems,
     analyzing threats, and building secure digital environments.
   </p>
@@ -339,8 +366,11 @@ export default function App() {
   <div className="grid md:grid-cols-2 gap-10 items-center">
 
     {/* LEFT - DESCRIPTION */}
-    <div className="text-[#9BA7B4] leading-relaxed space-y-6">
-
+    <div 
+      className="text-[#9BA7B4] leading-relaxed space-y-6"
+      data-aos="fade-right"
+      data-aos-delay="300"
+    >
       <p>
         I am an <span className="text-white font-medium">aspiring Cybersecurity Analyst</span> 
         with hands-on experience in log analysis, threat detection, and 
@@ -368,34 +398,25 @@ export default function App() {
         environments where I can contribute to real-time threat detection 
         and continuously enhance my cybersecurity skills.
       </p>
-
     </div>
 
     {/* RIGHT - HIGHLIGHT CARDS */}
     <div className="grid gap-6">
-
-      <div className="p-6 rounded-2xl bg-[#121821] border border-[#1F2933] hover:border-[#2F81F7] transition">
-        <h3 className="text-lg font-semibold mb-2">🛡️ Security Focus</h3>
-        <p className="text-sm text-[#9BA7B4]">
-          Threat Detection, Log Analysis, Incident Response, SOC Operations
-        </p>
-      </div>
-
-      <div className="p-6 rounded-2xl bg-[#121821] border border-[#1F2933] hover:border-[#2F81F7] transition">
-        <h3 className="text-lg font-semibold mb-2">⚙️ Tools & Technologies</h3>
-        <p className="text-sm text-[#9BA7B4]">
-          Splunk, Chronicle, Wireshark, Nmap, Linux, Python, SQL
-        </p>
-      </div>
-
-      <div className="p-6 rounded-2xl bg-[#121821] border border-[#1F2933] hover:border-[#2F81F7] transition">
-        <h3 className="text-lg font-semibold mb-2">🚀 Career Goal</h3>
-        <p className="text-sm text-[#9BA7B4]">
-          To become a skilled SOC Analyst and help organizations detect 
-          and prevent cyber threats effectively.
-        </p>
-      </div>
-
+      {[
+        { title: '🛡️ Security Focus', desc: 'Threat Detection, Log Analysis, Incident Response, SOC Operations' },
+        { title: '⚙️ Tools & Technologies', desc: 'Splunk, Chronicle, Wireshark, Nmap, Linux, Python, SQL' },
+        { title: '🚀 Career Goal', desc: 'To become a skilled SOC Analyst and help organizations detect and prevent cyber threats effectively.' }
+      ].map((card, i) => (
+        <div 
+          key={i} 
+          className="p-6 rounded-2xl bg-[#121821] border border-[#1F2933] hover:border-[#2F81F7] transition"
+          data-aos="fade-up"
+          data-aos-delay={400 + i * 100} // stagger each card by 100ms
+        >
+          <h3 className="text-lg font-semibold mb-2">{card.title}</h3>
+          <p className="text-sm text-[#9BA7B4]">{card.desc}</p>
+        </div>
+      ))}
     </div>
 
   </div>
@@ -813,15 +834,24 @@ export default function App() {
 // ===== SECTION =====
 function Section({ title, items }) {
   return (
-    <section id={title.toLowerCase()} className="max-w-6xl mx-auto px-6 py-20">
-      <h2 className="text-3xl font-bold mb-10 text-center">{title}</h2>
+    <section 
+      id={title.toLowerCase()} 
+      className="max-w-6xl mx-auto px-6 py-20"
+      data-aos="fade-up"
+    >
+      <h2 className="text-3xl font-bold mb-10 text-center" data-aos="fade-down">{title}</h2>
 
       <div className="grid md:grid-cols-3 gap-6">
         {items.map((item, i) => {
           const Icon = item.icon;
           return (
-            <div key={i} className="group p-6 bg-[#121821] border border-[#1F2933] rounded-xl hover:border-[#2F81F7] transition">
-  <Icon className="text-2xl mb-3 text-[#2F81F7] transition duration-300 group-hover:scale-125 group-hover:rotate-6" />
+            <div 
+              key={i} 
+              className="group p-6 bg-[#121821] border border-[#1F2933] rounded-xl hover:border-[#2F81F7] transition"
+              data-aos="zoom-in"
+              data-aos-delay={i * 100} // stagger animation
+            >
+              <Icon className="text-2xl mb-3 text-[#2F81F7] transition duration-300 group-hover:scale-125 group-hover:rotate-6" />
               <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
               <ul className="text-sm text-[#9BA7B4] list-disc ml-4">
                 {item.desc.map((d, j) => <li key={j}>{d}</li>)}
