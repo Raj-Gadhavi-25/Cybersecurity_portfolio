@@ -195,7 +195,9 @@ if (loading) {
   <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
 
     {/* LOGO */}
-    <h1 className="text-xl font-bold text-[#2F81F7]">Raj Gadhavi</h1>
+    <h1 className="text-xl font-bold text-[#2F81F7]" aria-label="Raj Gadhavi Portfolio">
+  Raj Gadhavi
+</h1>
 
     {/* DESKTOP MENU (≥1024px) */}
     <div className="hidden lg:flex flex-wrap gap-6">
@@ -223,6 +225,10 @@ if (loading) {
     {/* HAMBURGER BUTTON (visible <1024px) */}
 <button
   onClick={() => setMenuOpen(!menuOpen)}
+  aria-label="Toggle navigation menu"
+  aria-expanded={menuOpen}
+  aria-controls="mobile-menu"
+  type="button"
   className="lg:hidden relative w-8 h-8 flex flex-col justify-between items-center"
 >
   {/* Hamburger lines */}
@@ -243,9 +249,10 @@ if (loading) {
 
   {/* MOBILE/TABLET MENU (<1024px) with slide-down animation */}
   <div
-    className={`lg:hidden overflow-hidden transition-all duration-500 ease-in-out
-      ${menuOpen ? 'max-h-96 opacity-100 py-4' : 'max-h-0 opacity-0 py-0' } bg-[#121821] px-6`}
-  >
+  id="mobile-menu"
+  className={`lg:hidden overflow-hidden transition-all duration-500 ease-in-out
+    ${menuOpen ? 'max-h-96 opacity-100 py-4' : 'max-h-0 opacity-0 py-0'} bg-[#121821] px-6`}
+>
     {[
       'About',
       'Experience',
@@ -305,21 +312,25 @@ if (loading) {
 
             <div className="flex gap-4 text-xl text-[#9BA7B4]">
   <a
-    href="https://www.linkedin.com/in/raj-gadhavi0125/"
-    target="_blank"
-    rel="noreferrer"
-    className="hover:text-[#2F81F7] hover:-translate-y-1 hover:scale-110 transition duration-300"
-  >
-    <FaLinkedin />
-  </a>
+  href="https://www.linkedin.com/in/raj-gadhavi0125/"
+  target="_blank"
+  rel="noreferrer"
+  aria-label="Visit Raj Gadhavi LinkedIn profile"
+  title="LinkedIn"
+  className="hover:text-[#2F81F7] hover:-translate-y-1 hover:scale-110 transition duration-300"
+>
+  <FaLinkedin />
+</a>
   <a
-    href="https://github.com/Raj-Gadhavi-25"
-    target="_blank"
-    rel="noreferrer"
-    className="hover:text-[#2F81F7] hover:-translate-y-1 hover:scale-110 transition duration-300"
-  >
-    <FaGithub />
-  </a>
+  href="https://github.com/Raj-Gadhavi-25"
+  target="_blank"
+  rel="noreferrer"
+  aria-label="Visit Raj Gadhavi GitHub profile"
+  title="GitHub"
+  className="hover:text-[#2F81F7] hover:-translate-y-1 hover:scale-110 transition duration-300"
+>
+  <FaGithub />
+</a>
 </div>
           </div>
 
@@ -759,49 +770,71 @@ if (loading) {
 
       {/* Name */}
       <div>
-        <label className="block text-sm mb-2 text-[#9BA7B4]">Full Name</label>
+        <label
+  htmlFor="name"
+  className="block text-sm mb-2 text-[#9BA7B4]"
+>
+  Full Name
+</label>
         <input
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          placeholder="Enter your name"
-          required
-          className="w-full p-3 rounded-lg bg-[#0B0F14] border border-[#1F2933] 
-                     focus:border-[#2F81F7] focus:ring-1 focus:ring-[#2F81F7] 
-                     outline-none transition"
-        />
+  id="name"
+  name="name"
+  type="text"
+  autoComplete="name"
+  value={formData.name}
+  onChange={handleChange}
+  placeholder="Enter your name"
+  required
+  className="w-full p-3 rounded-lg bg-[#0B0F14] border border-[#1F2933] 
+             focus:border-[#2F81F7] focus:ring-1 focus:ring-[#2F81F7] 
+             outline-none transition"
+/>
       </div>
 
       {/* Email */}
       <div>
-        <label className="block text-sm mb-2 text-[#9BA7B4]">Email Address</label>
+        <label
+  htmlFor="email"
+  className="block text-sm mb-2 text-[#9BA7B4]"
+>
+  Email Address
+</label>
         <input
-          name="email"
-          type="email"
-          value={formData.email}
-          onChange={handleChange}
-          placeholder="Enter your email"
-          required
-          className="w-full p-3 rounded-lg bg-[#0B0F14] border border-[#1F2933] 
-                     focus:border-[#2F81F7] focus:ring-1 focus:ring-[#2F81F7] 
-                     outline-none transition"
-        />
+  id="email"
+  name="email"
+  type="email"
+  autoComplete="email"
+  value={formData.email}
+  onChange={handleChange}
+  placeholder="Enter your email"
+  required
+  className="w-full p-3 rounded-lg bg-[#0B0F14] border border-[#1F2933] 
+             focus:border-[#2F81F7] focus:ring-1 focus:ring-[#2F81F7] 
+             outline-none transition"
+/>
       </div>
 
       {/* Message */}
       <div>
-        <label className="block text-sm mb-2 text-[#9BA7B4]">Message</label>
+        <label
+  htmlFor="message"
+  className="block text-sm mb-2 text-[#9BA7B4]"
+>
+  Message
+</label>
         <textarea
-          name="message"
-          value={formData.message}
-          onChange={handleChange}
-          placeholder="Write your message..."
-          required
-          rows="4"
-          className="w-full p-3 rounded-lg bg-[#0B0F14] border border-[#1F2933] 
-                     focus:border-[#2F81F7] focus:ring-1 focus:ring-[#2F81F7] 
-                     outline-none transition resize-none"
-        />
+  id="message"
+  name="message"
+  value={formData.message}
+  onChange={handleChange}
+  placeholder="Write your message..."
+  required
+  rows="4"
+  className="w-full p-3 rounded-lg bg-[#0B0F14] border border-[#1F2933] 
+             focus:border-[#2F81F7] focus:ring-1 focus:ring-[#2F81F7] 
+             outline-none transition resize-none"
+/>
+
       </div>
 
       {/* Button */}
@@ -820,13 +853,18 @@ if (loading) {
 
       {/* TOP BUTTON */}
       {showTopBtn && (
-        <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="fixed bottom-6 right-6 bg-[#2F81F7] p-3 rounded-full">
-          <FaArrowUp />
-        </button>
+        <button
+  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+  aria-label="Scroll to top"
+  title="Scroll to top"
+  type="button"
+  className="fixed bottom-6 right-6 bg-[#2F81F7] p-3 rounded-full"
+>
+  <FaArrowUp />
+</button>
       )}
 
-      <ToastContainer />
+      <ToastContainer role="alert" />
     </div>
   );
 }
