@@ -5,18 +5,11 @@ import { FaTerminal, FaCircle } from 'react-icons/fa';
 const AUTHORIZED_COMMANDS = {
   help: 'Display available system protocols and commands.',
   whoami: 'Retrieve operational profile of Raj Gadhavi.',
-  ls: 'List accessible directories (missions, intel, gear).',
-  cat: 'Usage: cat [file] - Read specific data files.',
+  missions: 'List all tactical operations and projects.',
+  gear: 'View the current technological arsenal (Tech Stack).',
   scan: 'Execute a deep system vulnerability scan.',
   clear: 'Purge the terminal display history.',
   status: 'Check current system operational status.'
-};
-
-const FILES = {
-  'missions/cyber_shield': 'Network threat detection system utilizing Wireshark and Splunk.',
-  'missions/sentinel_drive': 'Encrypted storage solution with biometric simulation.',
-  'intel/profile': 'Aspiring SOC Analyst focused on Threat Analysis and Incident Response.',
-  'gear/stack': 'Splunk, Chronicle, Wireshark, Python, TCP/IP, Linux.',
 };
 
 const InteractiveTerminal = () => {
@@ -44,7 +37,6 @@ const InteractiveTerminal = () => {
   const handleCommand = (cmd) => {
     const args = cmd.toLowerCase().trim().split(' ');
     const baseCmd = args[0];
-    const target = args[1];
 
     let response = [];
     
@@ -59,23 +51,22 @@ const InteractiveTerminal = () => {
       case 'whoami':
         response.push({ type: 'output', content: 'USER: Raj Gadhavi' });
         response.push({ type: 'output', content: 'ROLE: Security Analyst / SOC Intern' });
+        response.push({ type: 'output', content: 'INTEL: Aspiring SOC Analyst focused on Threat Analysis and Incident Response.' });
         response.push({ type: 'output', content: 'STATUS: Operational' });
         break;
 
-      case 'ls':
-        response.push({ type: 'output', content: 'Directories:' });
-        response.push({ type: 'output', content: 'missions/  intel/  gear/' });
+      case 'missions':
+        response.push({ type: 'output', content: 'ACTIVE OPERATIONS:' });
+        response.push({ type: 'output', content: '▹ CYBER_SHIELD: Network threat detection utilizing Wireshark & Splunk.' });
+        response.push({ type: 'output', content: '▹ SENTINEL_DRIVE: Encrypted storage solution with biometric simulation.' });
+        response.push({ type: 'output', content: '▹ GHOST_LOGS: Real-time log analysis and reporting engine.' });
         break;
 
-      case 'cat':
-        if (!target) {
-          response.push({ type: 'error', content: 'ERROR: Specify a file target.' });
-        } else if (FILES[target]) {
-          response.push({ type: 'output', content: `Reading ${target}...` });
-          response.push({ type: 'output', content: FILES[target] });
-        } else {
-          response.push({ type: 'error', content: `ERROR: File "${target}" not found or encrypted.` });
-        }
+      case 'gear':
+        response.push({ type: 'output', content: 'TECHNOLOGICAL ARSENAL:' });
+        response.push({ type: 'output', content: '▹ SIEM: Splunk, Google Chronicle' });
+        response.push({ type: 'output', content: '▹ NETWORK: Wireshark, TCP/IP, DNS, Firewalls' });
+        response.push({ type: 'output', content: '▹ TOOLS: Python, SQL, Linux, Git' });
         break;
 
       case 'clear':
@@ -90,7 +81,6 @@ const InteractiveTerminal = () => {
 
       case 'scan':
         response.push({ type: 'system', content: 'INITIATING SCAN...' });
-        // Simulate a delay for a cooler effect
         setTimeout(() => {
           setHistory(prev => [...prev, 
             { type: 'output', content: 'SCAN COMPLETE: 0 Vulnerabilities Found. System Secure.' }
