@@ -14,6 +14,12 @@ const CommandCenter = () => {
   const [threats, setThreats] = useState([]);
   const [logs, setLogs] = useState([]);
   const containerRef = useRef(null);
+  
+  // Use ref for score to avoid interval restarts
+  const scoreRef = useRef(0);
+  useEffect(() => {
+    scoreRef.current = score;
+  }, [score]);
 
   const addLog = useCallback((msg) => {
     setLogs((prev) => [msg, ...prev].slice(0, 5));
@@ -23,45 +29,49 @@ const CommandCenter = () => {
   useEffect(() => {
     if (gameState !== 'active') return;
 
-    // Dynamic Difficulty Scaling (Faster base and steeper curve)
-    const speed = 2.5 + (score / 1000) * 1.2;
-    const spawnRate = Math.max(1200 - (score / 200) * 150, 400);
-
-    const spawnThreat = () => {
+    let spawnTimeout;
+    const spawnLoop = () => {
+      const currentScore = scoreRef.current;
+      const spawnRate = Math.max(1200 - (currentScore / 200) * 150, 400);
+      
       const type = threatTypes[Math.floor(Math.random() * threatTypes.length)];
       const newThreat = {
-        id: Date.now(),
+        id: Date.now() + Math.random(), // Ensure unique ID
         type,
         x: Math.random() * 80 + 10,
-        y: -20,
+        y: -15, // Start slightly off-screen
       };
+      
       setThreats((prev) => [...prev, newThreat]);
       addLog(`[ALERT] Incoming ${type.label} detected.`);
+      
+      spawnTimeout = setTimeout(spawnLoop, spawnRate);
     };
 
-    const spawnInterval = setInterval(spawnThreat, spawnRate);
     const moveInterval = setInterval(() => {
+      const currentScore = scoreRef.current;
+      const speed = 2.5 + (currentScore / 1000) * 1.5;
+
       setThreats((prev) => {
-        // Only move if the game is still active
         const moved = prev.map((t) => ({ ...t, y: t.y + speed }));
-        
-        // Find if any icon HAS TOUCHED or PASSED the red line (85%)
         const breach = moved.find((t) => t.y >= 85);
         
         if (breach) {
           setGameState('ended');
           addLog(`[CRITICAL] Perimeter breached by ${breach.type.label}.`);
-          return []; // Clear threats on breach
+          return [];
         }
         return moved;
       });
     }, 40);
 
+    spawnLoop();
+    
     return () => {
-      clearInterval(spawnInterval);
+      clearTimeout(spawnTimeout);
       clearInterval(moveInterval);
     };
-  }, [gameState, score, addLog]);
+  }, [gameState, addLog]);
 
   const neutralizeThreat = (id, label) => {
     if (gameState !== 'active') return;
