@@ -18,6 +18,9 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import emailjs from "@emailjs/browser";
 
+// ===== CONSTANTS =====
+const RESUME_URL = "/Resume.pdf?v=2"; // Update v=1 to v=2, v=3, etc. whenever you update your resume
+
 export default function App() {
   const [showNav, setShowNav] = useState(true);
   const [lastScroll, setLastScroll] = useState(0);
@@ -333,7 +336,7 @@ export default function App() {
               </a>
 
               <a
-                href="/Resume.pdf"
+                href={RESUME_URL}
                 download
                 className="border border-[#2F81F7] px-6 py-3 rounded-lg hover:bg-[#2F81F7]/10 hover:scale-105 transition duration-300"
               >
@@ -774,7 +777,8 @@ export default function App() {
             </p>
 
             <a
-              href="/Resume.pdf"
+              href={RESUME_URL}
+              download="Raj_Gadhavi_Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block w-full bg-gradient-to-r from-[#2F81F7] to-[#1f6feb]
