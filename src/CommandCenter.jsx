@@ -1,6 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { AnimatePresence, motion as Motion } from 'framer-motion';
 import { FaTerminal, FaShieldAlt, FaBug, FaDatabase, FaPlay, FaRedo } from 'react-icons/fa';
+
+const threatTypes = [
+  { id: 1, label: 'MALWARE', icon: FaBug, color: '#ff3e3e' },
+  { id: 2, label: 'BRUTE_FORCE', icon: FaTerminal, color: '#f7a02f' },
+  { id: 3, label: 'SQL_INJECTION', icon: FaDatabase, color: '#2f81f7' },
+];
 
 const CommandCenter = () => {
   const [gameState, setGameState] = useState('idle'); // idle, active, ended
@@ -9,11 +15,9 @@ const CommandCenter = () => {
   const [logs, setLogs] = useState([]);
   const containerRef = useRef(null);
 
-  const threatTypes = [
-    { id: 1, label: 'MALWARE', icon: FaBug, color: '#ff3e3e' },
-    { id: 2, label: 'BRUTE_FORCE', icon: FaTerminal, color: '#f7a02f' },
-    { id: 3, label: 'SQL_INJECTION', icon: FaDatabase, color: '#2f81f7' },
-  ];
+  const addLog = useCallback((msg) => {
+    setLogs((prev) => [msg, ...prev].slice(0, 5));
+  }, []);
 
   // Game Loop
   useEffect(() => {
@@ -48,11 +52,7 @@ const CommandCenter = () => {
       clearInterval(spawnInterval);
       clearInterval(moveInterval);
     };
-  }, [gameState]);
-
-  const addLog = (msg) => {
-    setLogs((prev) => [msg, ...prev].slice(0, 5));
-  };
+  }, [gameState, addLog]);
 
   const neutralizeThreat = (id, label) => {
     setThreats((prev) => prev.filter((t) => t.id !== id));
@@ -100,14 +100,14 @@ const CommandCenter = () => {
               <div className="space-y-2">
                 <AnimatePresence>
                   {logs.map((log, i) => (
-                    <motion.p
+                    <Motion.p
                       key={i}
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
                       className="text-[10px] font-mono text-[#9BA7B4] leading-tight"
                     >
                       {log}
-                    </motion.p>
+                    </Motion.p>
                   ))}
                 </AnimatePresence>
               </div>
@@ -122,7 +122,7 @@ const CommandCenter = () => {
 
             <AnimatePresence>
               {gameState === 'idle' && (
-                <motion.div 
+                <Motion.div 
                   initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                   className="absolute inset-0 flex flex-col items-center justify-center z-20 bg-[#0B0F14]/80 backdrop-blur-sm"
                 >
@@ -134,11 +134,11 @@ const CommandCenter = () => {
                   >
                     <FaPlay className="text-xs" /> BOOT_SYSTEM
                   </button>
-                </motion.div>
+                </Motion.div>
               )}
 
               {gameState === 'ended' && (
-                <motion.div 
+                <Motion.div 
                   initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                   className="absolute inset-0 flex flex-col items-center justify-center z-20 bg-red-900/20 backdrop-blur-md"
                 >
@@ -150,14 +150,14 @@ const CommandCenter = () => {
                   >
                     <FaRedo className="text-xs" /> REBOOT_AEGIS
                   </button>
-                </motion.div>
+                </Motion.div>
               )}
             </AnimatePresence>
 
             {/* Moving Threats */}
             <AnimatePresence>
               {threats.map((threat) => (
-                <motion.button
+                <Motion.button
                   key={threat.id}
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{ opacity: 1, scale: 1, top: `${threat.y}%`, left: `${threat.x}%` }}
@@ -170,7 +170,7 @@ const CommandCenter = () => {
                   <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[8px] font-mono whitespace-nowrap opacity-60">
                     {threat.type.label}
                   </span>
-                </motion.button>
+                </Motion.button>
               ))}
             </AnimatePresence>
 

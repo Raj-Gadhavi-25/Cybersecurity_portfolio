@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion as Motion } from 'framer-motion';
 import { FaTerminal, FaTimes, FaExpandAlt } from 'react-icons/fa';
+
+const facts = [
+  "SCANNING... SYSTEM_STATUS: SECURE.",
+  "INTEL: RAJ HAS STRONG NETWORKING & CYBER THEORY KNOWLEDGE.",
+  "VERIFIED: GOOGLE CYBERSECURITY CERT IS AUTHENTIC.",
+  "DATA: TRAINING AT ECOSMOB TECHNOLOGIES (APRIL 2026).",
+  "LOG: HANDS-ON SKILLS IN SPLUNK & WIRESHARK.",
+  "NETWORK: FLUENT IN TCP/IP, DNS & FIREWALL CONFIGS.",
+  "STATUS: ANALYZED IoCs IN MULTIPLE PHISHING SIMULATIONS.",
+  "SYSTEM: CV DOSSIER READY FOR SECURE DOWNLOAD.",
+  "AEGIS_CORE: PHYSICS_DRAG_MODE_ACTIVE."
+];
 
 const Sentinel = () => {
   const [message, setMessage] = useState('');
   const [isVisible, setIsVisible] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
-
-  const facts = [
-    "SCANNING... SYSTEM_STATUS: SECURE.",
-    "INTEL: RAJ HAS STRONG NETWORKING & CYBER THEORY KNOWLEDGE.",
-    "VERIFIED: GOOGLE CYBERSECURITY CERT IS AUTHENTIC.",
-    "DATA: TRAINING AT ECOSMOB TECHNOLOGIES (APRIL 2026).",
-    "LOG: HANDS-ON SKILLS IN SPLUNK & WIRESHARK.",
-    "NETWORK: FLUENT IN TCP/IP, DNS & FIREWALL CONFIGS.",
-    "STATUS: ANALYZED IoCs IN MULTIPLE PHISHING SIMULATIONS.",
-    "SYSTEM: CV DOSSIER READY FOR SECURE DOWNLOAD.",
-    "AEGIS_CORE: PHYSICS_DRAG_MODE_ACTIVE."
-  ];
 
   useEffect(() => {
     const showRandomFact = () => {
@@ -39,7 +39,7 @@ const Sentinel = () => {
 
   return (
     <div className="fixed inset-0 pointer-events-none z-[100]">
-      <motion.div
+      <Motion.div
         drag
         dragConstraints={{ left: 0, right: window.innerWidth - 100, top: 0, bottom: window.innerHeight - 100 }}
         dragElastic={0.1}
@@ -51,7 +51,7 @@ const Sentinel = () => {
         {/* Chat Bubble */}
         <AnimatePresence>
           {isVisible && !isMinimized && (
-            <motion.div
+            <Motion.div
               initial={{ opacity: 0, scale: 0.8, y: 10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.8, y: 10 }}
@@ -66,13 +66,13 @@ const Sentinel = () => {
                 {message}
               </p>
               <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 glass-card border-t-0 border-l-0 rotate-45 border-[#2F81F7]/30 border-r border-b"></div>
-            </motion.div>
+            </Motion.div>
           )}
         </AnimatePresence>
 
         {/* The Aegis Orb */}
         <div className="relative group">
-          <motion.div
+          <Motion.div
             animate={{ 
               scale: isMinimized ? 0.7 : 1,
               opacity: isMinimized ? 0.6 : 1
@@ -106,7 +106,7 @@ const Sentinel = () => {
                 {isMinimized ? 'OFF' : 'ON'}
               </div>
             </div>
-          </motion.div>
+          </Motion.div>
 
           {/* Action Buttons */}
           <div className="absolute -right-8 top-1/2 -translate-y-1/2 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -126,7 +126,7 @@ const Sentinel = () => {
             System_Aegis // Locked_on_Target
           </p>
         )}
-      </motion.div>
+      </Motion.div>
 
       <style dangerouslySetInnerHTML={{ __html: `
         @keyframes scan {
