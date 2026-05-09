@@ -42,13 +42,18 @@ const CommandCenter = () => {
     const spawnInterval = setInterval(spawnThreat, spawnRate);
     const moveInterval = setInterval(() => {
       setThreats((prev) => {
+        // Only move if the game is still active
         const moved = prev.map((t) => ({ ...t, y: t.y + speed }));
-        const passed = moved.filter((t) => t.y > 85);
-        if (passed.length > 0) {
+        
+        // Find if any icon HAS TOUCHED or PASSED the red line (85%)
+        const breach = moved.find((t) => t.y >= 85);
+        
+        if (breach) {
           setGameState('ended');
-          addLog(`[CRITICAL] Perimeter breached by ${passed[0].type.label}.`);
+          addLog(`[CRITICAL] Perimeter breached by ${breach.type.label}.`);
+          return []; // Clear threats on breach
         }
-        return moved.filter((t) => t.y <= 85);
+        return moved;
       });
     }, 40);
 
@@ -59,6 +64,8 @@ const CommandCenter = () => {
   }, [gameState, score, addLog]);
 
   const neutralizeThreat = (id, label) => {
+    if (gameState !== 'active') return;
+
     setThreats((prev) => prev.filter((t) => t.id !== id));
     setScore((s) => {
       const newScore = s + 100;
