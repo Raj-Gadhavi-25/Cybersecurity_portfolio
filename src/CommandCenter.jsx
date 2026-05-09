@@ -54,7 +54,7 @@ const CommandCenter = () => {
 
       setThreats((prev) => {
         const moved = prev.map((t) => ({ ...t, y: t.y + speed }));
-        const breach = moved.find((t) => t.y >= 85);
+        const breach = moved.find((t) => t.y >= 98);
         
         if (breach) {
           setGameState('ended');
@@ -148,8 +148,8 @@ const CommandCenter = () => {
             <div className="absolute inset-0 opacity-10 pointer-events-none" 
                  style={{backgroundImage: 'linear-gradient(#2F81F7 1px, transparent 1px), linear-gradient(90deg, #2F81F7 1px, transparent 1px)', backgroundSize: '40px 40px'}}></div>
 
-            {/* Warning Line (Box 3) */}
-            <div className="absolute top-[85%] left-0 w-full h-px bg-red-500/30 border-t border-dashed border-red-500/50 z-10">
+            {/* Warning Line (Bottom) */}
+            <div className="absolute top-[98%] left-0 w-full h-px bg-red-500/30 border-t border-dashed border-red-500/50 z-10">
               <span className="absolute right-4 -top-4 text-[8px] font-mono text-red-500/50 uppercase tracking-widest">Breach_Perimeter</span>
             </div>
 
