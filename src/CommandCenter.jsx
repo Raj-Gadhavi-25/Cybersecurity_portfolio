@@ -23,9 +23,9 @@ const CommandCenter = () => {
   useEffect(() => {
     if (gameState !== 'active') return;
 
-    // Dynamic Difficulty Scaling
-    const speed = 1.2 + (score / 1000) * 0.8;
-    const spawnRate = Math.max(2000 - (score / 500) * 150, 500);
+    // Dynamic Difficulty Scaling (Faster base and steeper curve)
+    const speed = 2.5 + (score / 1000) * 1.2;
+    const spawnRate = Math.max(1200 - (score / 200) * 150, 400);
 
     const spawnThreat = () => {
       const type = threatTypes[Math.floor(Math.random() * threatTypes.length)];
@@ -43,12 +43,12 @@ const CommandCenter = () => {
     const moveInterval = setInterval(() => {
       setThreats((prev) => {
         const moved = prev.map((t) => ({ ...t, y: t.y + speed }));
-        const passed = moved.filter((t) => t.y > 85);
+        const passed = moved.filter((t) => t.y > 98);
         if (passed.length > 0) {
           setGameState('ended');
           addLog(`[CRITICAL] Perimeter breached by ${passed[0].type.label}.`);
         }
-        return moved.filter((t) => t.y <= 85);
+        return moved.filter((t) => t.y <= 98);
       });
     }, 40);
 
@@ -131,8 +131,8 @@ const CommandCenter = () => {
             <div className="absolute inset-0 opacity-10 pointer-events-none" 
                  style={{backgroundImage: 'linear-gradient(#2F81F7 1px, transparent 1px), linear-gradient(90deg, #2F81F7 1px, transparent 1px)', backgroundSize: '40px 40px'}}></div>
 
-            {/* Warning Line (Box 3) */}
-            <div className="absolute top-[85%] left-0 w-full h-px bg-red-500/30 border-t border-dashed border-red-500/50 z-10">
+            {/* Warning Line (Bottom) */}
+            <div className="absolute top-[98%] left-0 w-full h-px bg-red-500/30 border-t border-dashed border-red-500/50 z-10">
               <span className="absolute right-4 -top-4 text-[8px] font-mono text-red-500/50 uppercase tracking-widest">Breach_Perimeter</span>
             </div>
 
