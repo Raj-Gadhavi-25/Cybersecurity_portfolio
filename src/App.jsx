@@ -153,23 +153,25 @@ export default function App() {
 
   const Experience = [
     {
-      title: "Web Designer Intern",
-      company: "Qrolic Technologies",
-      duration: "Jan 2025 – May 2025",
+      title: "Trainee Engineer",
+      company: "Ecosmob Technologies",
+      duration: "April 2026 – Present",
       desc: [
-        "Developed responsive websites using HTML, CSS, JavaScript",
-        "Worked on real client projects and improved UI/UX",
-        "Customized WordPress websites using Elementor",
+        "Learning advanced Linux commands and system operations",
+        "Understanding the workflow of VoIP (Voice over IP)",
+        "Testing logs using Wireshark and VoIP Monitor for network analysis",
+        "Handling renewal and management of SSL certificates",
+        "Learning integration of NetSapiens and HoduPBX switches",
       ],
     },
     {
       title: "Cybersecurity Virtual Experience",
-      company: "Deloitte (Forage)",
+      company: "Mastercard (Forage)",
       duration: "2025 | ~2-3 hours",
       desc: [
-        "Completed real-world cybersecurity simulation tasks",
-        "Analyzed security threats and vulnerabilities",
-        "Worked on incident response scenarios",
+        "Learned fraud detection and cybersecurity practices",
+        "Analyzed risk scenarios and security incidents",
+        "Improved understanding of enterprise security systems",
       ],
     },
     {
@@ -184,12 +186,22 @@ export default function App() {
     },
     {
       title: "Cybersecurity Virtual Experience",
-      company: "Mastercard (Forage)",
+      company: "Deloitte (Forage)",
       duration: "2025 | ~2-3 hours",
       desc: [
-        "Learned fraud detection and cybersecurity practices",
-        "Analyzed risk scenarios and security incidents",
-        "Improved understanding of enterprise security systems",
+        "Completed real-world cybersecurity simulation tasks",
+        "Analyzed security threats and vulnerabilities",
+        "Worked on incident response scenarios",
+      ],
+    },
+    {
+      title: "Web Designer Intern",
+      company: "Qrolic Technologies",
+      duration: "Jan 2025 – May 2025",
+      desc: [
+        "Developed responsive websites using HTML, CSS, JavaScript",
+        "Worked on real client projects and improved UI/UX",
+        "Customized WordPress websites using Elementor",
       ],
     },
   ];
@@ -487,26 +499,33 @@ export default function App() {
 
         {/* TIMELINE CONTAINER */}
         <div className="relative max-w-3xl mx-auto border-l border-[#1F2933]">
-          {/* INTERNSHIP */}
+          {/* ECOSMOB TECHNOLOGIES */}
           <div className="mb-12 pl-10 relative hover:translate-x-2 transition duration-300">
             {/* DOT */}
             <span className="absolute -left-2 top-3 w-4 h-4 bg-[#2F81F7] rounded-full border-4 border-[#0B0F14]"></span>
 
             {/* TIMESTAMP */}
             <p className="inline-block text-sm font-semibold text-[#2F81F7] bg-[#2F81F7]/10 px-3 py-1 rounded-full mb-3 tracking-wide">
-              Jan 2025 – May 2025
+              April 2026 – Present
             </p>
 
             <h3 className="text-lg font-semibold text-white">
-              Web Designer Intern
+              Trainee Engineer
             </h3>
 
-            <p className="text-sm text-[#2F81F7] mb-3">Qrolic Technologies</p>
+            <p className="text-sm text-[#2F81F7] mb-3">
+              Ecosmob Technologies, Ahmedabad
+            </p>
 
-            <ul className="text-sm text-[#9BA7B4] space-y-1 list-disc ml-4">
-              <li>Developed responsive websites using HTML, CSS, JavaScript</li>
-              <li>Worked on real client projects and improved UI/UX</li>
-              <li>Customized WordPress websites using Elementor</li>
+            <ul className="text-sm text-[#9BA7B4] space-y-2 list-disc ml-4">
+              <li>Learning advanced Linux commands and system operations</li>
+              <li>Understanding the workflow of VoIP (Voice over IP)</li>
+              <li>
+                Testing logs using Wireshark and VoIP Monitor for network
+                analysis
+              </li>
+              <li>Handling renewal and management of SSL certificates</li>
+              <li>Learning integration of NetSapiens and HoduPBX switches</li>
             </ul>
           </div>
 
@@ -542,6 +561,29 @@ export default function App() {
                 monitoring & detection
               </li>
               <li>Completed 3 simulations (~2–3 hours each)</li>
+            </ul>
+          </div>
+
+          {/* INTERNSHIP */}
+          <div className="mb-12 pl-10 relative hover:translate-x-2 transition duration-300">
+            {/* DOT */}
+            <span className="absolute -left-2 top-3 w-4 h-4 bg-[#2F81F7] rounded-full border-4 border-[#0B0F14]"></span>
+
+            {/* TIMESTAMP */}
+            <p className="inline-block text-sm font-semibold text-[#2F81F7] bg-[#2F81F7]/10 px-3 py-1 rounded-full mb-3 tracking-wide">
+              Jan 2025 – May 2025
+            </p>
+
+            <h3 className="text-lg font-semibold text-white">
+              Web Designer Intern
+            </h3>
+
+            <p className="text-sm text-[#2F81F7] mb-3">Qrolic Technologies</p>
+
+            <ul className="text-sm text-[#9BA7B4] space-y-1 list-disc ml-4">
+              <li>Developed responsive websites using HTML, CSS, JavaScript</li>
+              <li>Worked on real client projects and improved UI/UX</li>
+              <li>Customized WordPress websites using Elementor</li>
             </ul>
           </div>
         </div>
