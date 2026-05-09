@@ -191,7 +191,6 @@ const InteractiveTerminal = () => {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
-                autoFocus
                 className="bg-transparent border-none outline-none text-[#E6EDF3] flex-1 caret-[#2F81F7]"
               />
             </div>
