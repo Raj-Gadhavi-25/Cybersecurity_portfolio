@@ -1,12 +1,56 @@
-# React + Vite
+# 🛡️ Cybersecurity Portfolio - Raj Gadhavi
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A high-performance, interactive cybersecurity portfolio built with React, Vite, and GSAP. This project showcases my skills in SOC operations, threat analysis, and web development with a modern "Cyber" aesthetic.
 
-Currently, two official plugins are available:
+**Live Demo:** [https://Raj-Gadhavi-25.github.io/Cybersecurity_portfolio/](https://Raj-Gadhavi-25.github.io/Cybersecurity_portfolio/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Key Features
 
-## Expanding the ESLint configuration
+-   **Interactive Aegis Command Center:** A mini-game simulation testing analyst reflexes against common threats (Malware, Brute Force, SQL Injection).
+-   **Aegis Sentinel:** A floating, interactive holographic orb (Aegis Core) that provides live data streams and system facts.
+-   **Dynamic Scramble Effect:** GSAP-powered text animations for a high-tech terminal feel.
+-   **Network Background:** Real-time particle-based network visualization using `@tsparticles`.
+-   **Responsive Glassmorphism UI:** Modern design with fluid typography and scan-line effects.
+-   **Automated Deployment:** Integrated GitHub Pages deployment pipeline.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠️ Tech Stack
+
+-   **Frontend:** React 19, Tailwind CSS 4, GSAP (ScrollTrigger), Framer Motion.
+-   **Animations:** AOS (Animate on Scroll), React Simple Typewriter.
+-   **Icons:** React Icons (Font Awesome).
+-   **Build Tool:** Vite.
+-   **Communication:** EmailJS for the secure contact channel.
+
+## 📦 Installation & Setup
+
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/Raj-Gadhavi-25/Cybersecurity_portfolio.git
+    cd Cybersecurity_portfolio
+    ```
+
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+
+3.  **Run in development mode:**
+    ```bash
+    npm run dev
+    ```
+
+4.  **Build for production:**
+    ```bash
+    npm run build
+    ```
+
+## 🚢 Deployment
+
+The project is configured for GitHub Pages. To deploy:
+```bash
+npm run deploy
+```
+
+## 📄 License
+
+This project is personal and used for portfolio purposes. Feel free to explore the code!
