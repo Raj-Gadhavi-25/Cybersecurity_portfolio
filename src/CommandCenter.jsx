@@ -9,7 +9,7 @@ const threatTypes = [
 ];
 
 const CommandCenter = () => {
-  const [gameState, setGameState] = useState('idle'); // idle, active, ended
+  const [gameState, setGameState] = useState('idle'); // idle, active, ended, won
   const [score, setScore] = useState(0);
   const [threats, setThreats] = useState([]);
   const [logs, setLogs] = useState([]);
@@ -23,22 +23,26 @@ const CommandCenter = () => {
   useEffect(() => {
     if (gameState !== 'active') return;
 
+    // Dynamic Difficulty Scaling
+    const speed = 1.2 + (score / 1000) * 0.8;
+    const spawnRate = Math.max(2000 - (score / 500) * 150, 500);
+
     const spawnThreat = () => {
       const type = threatTypes[Math.floor(Math.random() * threatTypes.length)];
       const newThreat = {
         id: Date.now(),
         type,
-        x: Math.random() * 80 + 10, // 10% to 90%
+        x: Math.random() * 80 + 10,
         y: -20,
       };
       setThreats((prev) => [...prev, newThreat]);
       addLog(`[ALERT] Incoming ${type.label} detected.`);
     };
 
-    const spawnInterval = setInterval(spawnThreat, 2000);
+    const spawnInterval = setInterval(spawnThreat, spawnRate);
     const moveInterval = setInterval(() => {
       setThreats((prev) => {
-        const moved = prev.map((t) => ({ ...t, y: t.y + 1.5 }));
+        const moved = prev.map((t) => ({ ...t, y: t.y + speed }));
         const passed = moved.filter((t) => t.y > 85);
         if (passed.length > 0) {
           setGameState('ended');
@@ -52,11 +56,18 @@ const CommandCenter = () => {
       clearInterval(spawnInterval);
       clearInterval(moveInterval);
     };
-  }, [gameState, addLog]);
+  }, [gameState, score, addLog]);
 
   const neutralizeThreat = (id, label) => {
     setThreats((prev) => prev.filter((t) => t.id !== id));
-    setScore((s) => s + 100);
+    setScore((s) => {
+      const newScore = s + 100;
+      if (newScore >= 5000) {
+        setGameState('won');
+        addLog(`[MISSION_COMPLETE] System Secured. Perimeter intact.`);
+      }
+      return newScore;
+    });
     addLog(`[SUCCESS] ${label} neutralized.`);
   };
 
@@ -115,7 +126,7 @@ const CommandCenter = () => {
           </div>
 
           {/* Game Arena */}
-          <div className="lg:col-span-8 relative h-[400px] glass-card rounded-[2.5rem] border-[#2F81F7]/30 overflow-hidden bg-[#0B0F14]/50" ref={containerRef}>
+          <div className="lg:col-span-8 relative h-[500px] glass-card rounded-[2.5rem] border-[#2F81F7]/30 overflow-hidden bg-[#0B0F14]/50" ref={containerRef}>
             {/* Grid Background */}
             <div className="absolute inset-0 opacity-10 pointer-events-none" 
                  style={{backgroundImage: 'linear-gradient(#2F81F7 1px, transparent 1px), linear-gradient(90deg, #2F81F7 1px, transparent 1px)', backgroundSize: '40px 40px'}}></div>
@@ -154,6 +165,23 @@ const CommandCenter = () => {
                     className="bg-white text-black px-8 py-3 rounded-xl font-bold hover:bg-gray-200 transition-all flex items-center gap-3"
                   >
                     <FaRedo className="text-xs" /> REBOOT_AEGIS
+                  </button>
+                </Motion.div>
+              )}
+
+              {gameState === 'won' && (
+                <Motion.div 
+                  initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                  className="absolute inset-0 flex flex-col items-center justify-center z-20 bg-green-900/20 backdrop-blur-md"
+                >
+                  <FaShieldAlt className="text-6xl text-green-500 mb-6" />
+                  <h3 className="text-4xl font-bold text-green-500 mb-2">MISSION_SUCCESS</h3>
+                  <p className="text-xl font-mono mb-8">SYSTEM_SECURED: {score} PTS</p>
+                  <button 
+                    onClick={startGame}
+                    className="bg-green-500 text-white px-8 py-3 rounded-xl font-bold hover:bg-green-600 transition-all flex items-center gap-3"
+                  >
+                    <FaRedo className="text-xs" /> RUN_ANOTHER_SIM
                   </button>
                 </Motion.div>
               )}
