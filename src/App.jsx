@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import Loader from "./loader";
 import NetworkBackground from "./NetworkBackground";
 import Sentinel from "./Sentinel";
-import CommandCenter from "./CommandCenter";
+import InteractiveTerminal from "./InteractiveTerminal";
 import {
   FaLinkedin,
   FaGithub,
@@ -262,7 +262,7 @@ export default function App() {
       <Section title="Operations" items={projects} />
       <Section title="Tech_Stack" items={skills} />
 
-      <CommandCenter />
+      <InteractiveTerminal />
 
       {/* CERTIFICATIONS */}
       <section id="certifications" className="section-padding px-6">
