@@ -27,7 +27,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 // ===== CONSTANTS =====
-const RESUME_URL = "/Resume.pdf?v=2";
+const RESUME_URL = "./Resume.pdf?v=2";
 
 export default function App() {
   const [showNav, setShowNav] = useState(true);
@@ -279,7 +279,7 @@ export default function App() {
             ].map((c, i) => (
               <div key={i} className="glass-card p-8 rounded-3xl hover-lift flex items-center gap-6" data-aos="zoom-in" data-aos-delay={i * 100}>
                 <div className="w-16 h-16 bg-white/5 p-3 rounded-xl flex-shrink-0">
-                  <img src={`/images/${c.img}`} alt={c.title} className="w-full h-full object-contain" />
+                  <img src={`./images/${c.img}`} alt={c.title} className="w-full h-full object-contain" />
                 </div>
                 <div>
                   <h3 className="font-bold text-lg mb-1">{c.title}</h3>
