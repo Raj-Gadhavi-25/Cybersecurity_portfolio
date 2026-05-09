@@ -28,11 +28,13 @@ const InteractiveTerminal = () => {
   ]);
   const [commandHistory, setCommandHistory] = useState([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
-  const logEndRef = useRef(null);
+  const terminalBodyRef = useRef(null);
   const inputRef = useRef(null);
 
   const scrollToBottom = () => {
-    logEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (terminalBodyRef.current) {
+      terminalBodyRef.current.scrollTop = terminalBodyRef.current.scrollHeight;
+    }
   };
 
   useEffect(() => {
@@ -157,7 +159,10 @@ const InteractiveTerminal = () => {
           </div>
 
           {/* Terminal Content */}
-          <div className="p-8 h-[450px] overflow-y-auto font-mono text-sm space-y-3 bg-[#0B0F14]/90 custom-scrollbar">
+          <div 
+            ref={terminalBodyRef}
+            className="p-8 h-[450px] overflow-y-auto font-mono text-sm space-y-3 bg-[#0B0F14]/90 custom-scrollbar"
+          >
             <AnimatePresence mode="popLayout">
               {history.map((line, i) => (
                 <Motion.div
@@ -190,7 +195,6 @@ const InteractiveTerminal = () => {
                 className="bg-transparent border-none outline-none text-[#E6EDF3] flex-1 caret-[#2F81F7]"
               />
             </div>
-            <div ref={logEndRef} />
           </div>
         </div>
         
