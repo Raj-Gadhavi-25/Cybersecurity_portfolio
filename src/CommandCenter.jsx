@@ -38,15 +38,15 @@ const CommandCenter = () => {
     const spawnInterval = setInterval(spawnThreat, 2000);
     const moveInterval = setInterval(() => {
       setThreats((prev) => {
-        const moved = prev.map((t) => ({ ...prev, ...t, y: t.y + 2 }));
-        const passed = moved.filter((t) => t.y > 100);
+        const moved = prev.map((t) => ({ ...t, y: t.y + 1.5 }));
+        const passed = moved.filter((t) => t.y > 85);
         if (passed.length > 0) {
           setGameState('ended');
           addLog(`[CRITICAL] Perimeter breached by ${passed[0].type.label}.`);
         }
-        return moved.filter((t) => t.y <= 100);
+        return moved.filter((t) => t.y <= 85);
       });
-    }, 50);
+    }, 40);
 
     return () => {
       clearInterval(spawnInterval);
@@ -115,10 +115,15 @@ const CommandCenter = () => {
           </div>
 
           {/* Game Arena */}
-          <div className="lg:col-span-8 relative h-[500px] glass-card rounded-[2.5rem] border-[#2F81F7]/30 overflow-hidden bg-[#0B0F14]/50" ref={containerRef}>
+          <div className="lg:col-span-8 relative h-[400px] glass-card rounded-[2.5rem] border-[#2F81F7]/30 overflow-hidden bg-[#0B0F14]/50" ref={containerRef}>
             {/* Grid Background */}
             <div className="absolute inset-0 opacity-10 pointer-events-none" 
                  style={{backgroundImage: 'linear-gradient(#2F81F7 1px, transparent 1px), linear-gradient(90deg, #2F81F7 1px, transparent 1px)', backgroundSize: '40px 40px'}}></div>
+
+            {/* Warning Line (Box 3) */}
+            <div className="absolute top-[85%] left-0 w-full h-px bg-red-500/30 border-t border-dashed border-red-500/50 z-10">
+              <span className="absolute right-4 -top-4 text-[8px] font-mono text-red-500/50 uppercase tracking-widest">Breach_Perimeter</span>
+            </div>
 
             <AnimatePresence>
               {gameState === 'idle' && (
