@@ -62,7 +62,7 @@ const CommandCenter = () => {
     setThreats((prev) => prev.filter((t) => t.id !== id));
     setScore((s) => {
       const newScore = s + 100;
-      if (newScore >= 5000) {
+      if (newScore >= 1000) {
         setGameState('won');
         addLog(`[MISSION_COMPLETE] System Secured. Perimeter intact.`);
       }
