@@ -164,7 +164,7 @@ export default function App() {
             {["About", "Experience", "Operations", "Tech_Stack", "Certifications"].map((s) => (
               <a key={s} href={`#${s.toLowerCase()}`} className="text-sm font-mono text-[#9BA7B4] hover:text-[#2F81F7] transition-colors">{s}</a>
             ))}
-            <a href={RESUME_URL} download className="text-sm font-mono text-[#9BA7B4] hover:text-[#2F81F7] transition-colors">Resume</a>
+            <a href={RESUME_URL} download target="_blank" rel="noreferrer" className="text-sm font-mono text-[#9BA7B4] hover:text-[#2F81F7] transition-colors">Resume</a>
             <a href="#contact" className="bg-[#2F81F7] text-white px-5 py-2 rounded-full text-sm font-bold hover:bg-[#1f6feb] transition-all transform hover:scale-105 soc-glow">CONNECT</a>
           </div>
 
@@ -178,7 +178,17 @@ export default function App() {
         {/* MOBILE MENU */}
         <div className={`lg:hidden overflow-hidden transition-all duration-500 ${menuOpen ? "max-h-screen py-8 border-b border-[#1F2933]" : "max-h-0"} bg-[#121821] px-6`}>
           {["About", "Experience", "Operations", "Tech_Stack", "Certifications", "Resume", "Contact"].map((s) => (
-            <a key={s} href={`#${s.toLowerCase()}`} onClick={() => setMenuOpen(false)} className="block py-4 text-xl font-mono text-[#9BA7B4] border-b border-[#1F2933]/30 last:border-0">{s}</a>
+            <a
+              key={s}
+              href={s === "Resume" ? RESUME_URL : `#${s.toLowerCase()}`}
+              download={s === "Resume"}
+              target={s === "Resume" ? "_blank" : undefined}
+              rel={s === "Resume" ? "noreferrer" : undefined}
+              onClick={() => setMenuOpen(false)}
+              className="block py-4 text-xl font-mono text-[#9BA7B4] border-b border-[#1F2933]/30 last:border-0"
+            >
+              {s}
+            </a>
           ))}
         </div>
       </nav>
@@ -195,7 +205,7 @@ export default function App() {
             </p>
             <div className="flex flex-wrap gap-4">
               <a href="#operations" className="bg-[#2F81F7] px-8 py-4 rounded-xl font-bold hover:bg-[#1f6feb] transition-all hover:scale-105 soc-glow">View Missions</a>
-              <a href={RESUME_URL} download className="border border-[#2F81F7] text-[#2F81F7] px-8 py-4 rounded-xl font-bold hover:bg-[#2F81F7]/10 transition-all hover:scale-105">Personnel Dossier</a>
+              <a href={RESUME_URL} download target="_blank" rel="noreferrer" className="border border-[#2F81F7] text-[#2F81F7] px-8 py-4 rounded-xl font-bold hover:bg-[#2F81F7]/10 transition-all hover:scale-105">Personnel Dossier</a>
             </div>
           </div>
 
